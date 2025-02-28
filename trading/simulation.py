@@ -300,3 +300,72 @@ class SimulationTracker:
         
         print_success(f"Performance chart saved to: {save_path}")
         return save_path
+
+def load_simulation_data():
+    """
+    Load existing simulation data from files
+    
+    Returns:
+    tuple: (SimulationTracker instance, success boolean)
+    """
+    import os
+    import json
+    
+    # Check if simulation data file exists
+    data_file = os.path.join('simulation_data', 'simulation_data.json')
+    if not os.path.exists(data_file):
+        print("No existing simulation data found.")
+        return None, False
+    
+    try:
+        # Load data from JSON file
+        with open(data_file, 'r') as f:
+            data = json.load(f)
+        
+        transactions = data.get('transactions', [])
+        balance_history = data.get('balance_history', [])
+        
+        if not balance_history:
+            print("No balance history found in data file.")
+            return None, False
+        
+        # Extract initial balance and currencies from the first balance entry
+        initial_entry = balance_history[0]
+        quote_balance = initial_entry.get('quote_balance', 0)
+        
+        # Determine base/quote currencies from transactions if available
+        base_currency = 'BTC'  # Default
+        quote_currency = 'USDT'  # Default
+        
+        # Try to extract currency info from transactions
+        if transactions:
+            for transaction in transactions:
+                if transaction.get('base_currency') and transaction.get('quote_currency'):
+                    base_currency = transaction.get('base_currency')
+                    quote_currency = transaction.get('quote_currency')
+                    break
+        
+        # Create a new simulation tracker with the loaded initial balance
+        sim_tracker = SimulationTracker(
+            initial_balance=quote_balance,
+            base_currency=base_currency,
+            quote_currency=quote_currency
+        )
+        
+        # Restore transaction history and balance history
+        sim_tracker.transaction_history = transactions
+        sim_tracker.balance_history = balance_history
+        
+        # Calculate current balances from the most recent balance entry
+        if balance_history:
+            latest_entry = balance_history[-1]
+            sim_tracker.quote_balance = latest_entry.get('quote_balance', quote_balance)
+            sim_tracker.base_balance = latest_entry.get('base_balance', 0)
+        
+        return sim_tracker, True
+        
+    except Exception as e:
+        print(f"Error loading simulation data: {e}")
+        import traceback
+        traceback.print_exc()
+        return None, False

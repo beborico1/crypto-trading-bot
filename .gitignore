@@ -1,0 +1,6 @@
+venv
+*.env
+*.pem
+*.key
+*.csr
+*.pyc

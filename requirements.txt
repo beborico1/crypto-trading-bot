@@ -1,0 +1,20 @@
+# API and exchange connectivity
+ccxt==4.2.13
+requests==2.31.0
+
+# Data handling and visualization
+pandas==2.2.0
+numpy==1.26.3
+matplotlib==3.8.2
+
+# Technical analysis
+TA-Lib==0.4.28
+
+# Configuration
+python-dotenv==1.0.1
+
+# Security
+cryptography==41.0.7
+
+# Terminal colors
+colorama==0.4.6

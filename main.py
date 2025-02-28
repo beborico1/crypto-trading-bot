@@ -39,6 +39,12 @@ def main():
                         help='Generate dashboard from existing simulation data and exit')
     parser.add_argument('--standard-strategy', action='store_true',
                         help='Use standard MA crossover strategy instead of enhanced strategy')
+    parser.add_argument('--scalping-mode', action='store_true',
+                        help='Use scalping strategy for more frequent trading')
+    parser.add_argument('--take-profit', type=float, default=1.5,
+                        help='Take profit percentage (default: 1.5%)')
+    parser.add_argument('--stop-loss', type=float, default=1.0,
+                        help='Stop loss percentage (default: 1.0%)')
     
     args = parser.parse_args()
     
@@ -51,6 +57,10 @@ def main():
     # Determine simulation mode
     simulation_mode = args.simulation or config.SIMULATION_MODE
     
+    # Determine strategy mode (priority: scalping > standard > enhanced)
+    use_enhanced_strategy = not args.standard_strategy and not args.scalping_mode
+    use_scalping_strategy = args.scalping_mode
+    
     # Display configuration
     print_info("Bot Configuration:")
     print_info(f"  Symbol: {Colors.CYAN}{args.symbol}{Colors.RESET}")
@@ -59,10 +69,18 @@ def main():
     print_info(f"  Check Interval: {Colors.CYAN}{args.interval} seconds{Colors.RESET}")
     print_info(f"  MA Windows: {Colors.CYAN}{args.short_window}/{args.long_window}{Colors.RESET}")
     print_info(f"  Simulation Mode: {Colors.YELLOW if simulation_mode else Colors.GREEN}{simulation_mode}{Colors.RESET}")
-    print_info(f"  Strategy: {Colors.MAGENTA}{'Enhanced' if not args.standard_strategy else 'Standard MA Crossover'}{Colors.RESET}")
     
-    # Determine which strategy to use (enhanced by default)
-    use_enhanced_strategy = not args.standard_strategy
+    # Show strategy info
+    if use_scalping_strategy:
+        strategy_name = "Scalping"
+    elif use_enhanced_strategy:
+        strategy_name = "Enhanced"
+    else:
+        strategy_name = "Standard MA Crossover"
+    
+    print_info(f"  Strategy: {Colors.MAGENTA}{strategy_name}{Colors.RESET}")
+    print_info(f"  Take Profit: {Colors.GREEN}{args.take_profit}%{Colors.RESET}")
+    print_info(f"  Stop Loss: {Colors.RED}{args.stop_loss}%{Colors.RESET}")
     
     # Initialize the bot with configuration
     try:
@@ -75,7 +93,10 @@ def main():
             short_window=args.short_window,
             long_window=args.long_window,
             simulation_mode=simulation_mode,
-            use_enhanced_strategy=use_enhanced_strategy
+            use_enhanced_strategy=use_enhanced_strategy,
+            use_scalping_strategy=use_scalping_strategy,
+            take_profit_percentage=args.take_profit,
+            stop_loss_percentage=args.stop_loss
         )
         
         # Check balance before starting (if credentials are available and not in simulation mode)

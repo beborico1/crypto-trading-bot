@@ -1,138 +1,213 @@
-# Crypto Trading Bot
+# Cryptocurrency Trading Bot
 
-A cryptocurrency trading bot with moving average crossover strategy and enhanced technical indicators.
+A versatile automated trading bot for cryptocurrency markets featuring multiple strategies, simulation mode, and performance analytics.
+
+![Trading Dashboard](simulation_data/dashboard/trading_dashboard.png)
 
 ## Features
 
-- **Real-time market data** via Binance API
-- **Moving Average Crossover** strategy with enhanced indicators (RSI, MACD, Bollinger Bands)
-- **Simulation mode** for testing strategies without real trading
-- **Colorized terminal output** for better readability
-- **Performance tracking and visualization**
-- **Dashboard generation** with trading metrics and charts
+- **Multiple Trading Strategies**:
+  - Standard MA Crossover Strategy
+  - Enhanced Strategy with RSI, MACD, and Bollinger Bands
+  - Scalping Strategy for high-frequency trading
+  
+- **Risk Management**:
+  - Automated take profit and stop loss mechanisms
+  - Customizable risk parameters
+  
+- **Simulation Mode**:
+  - Test strategies without risking real funds
+  - Historical performance tracking
+  
+- **Comprehensive Dashboard**:
+  - Portfolio value visualization
+  - Trade history analysis
+  - Performance metrics
+  
+- **Real-time Analysis**:
+  - Technical indicators (RSI, MACD, Stochastic, Bollinger Bands)
+  - Moving average calculations
+  - Signal generation
+
+## Requirements
+
+- Python 3.7+
+- TA-Lib
+- Dependencies listed in `requirements.txt`
 
 ## Installation
 
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/yourusername/crypto-trading-bot.git
    cd crypto-trading-bot
    ```
 
-2. Install dependencies:
-   ```
+2. Install the required dependencies:
+   ```bash
    pip install -r requirements.txt
    ```
 
 3. Install TA-Lib (Technical Analysis Library):
-   - **Windows**: Download and install from [TA-Lib Windows Binary](https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib)
-   - **macOS**: `brew install ta-lib`
-   - **Linux**: `sudo apt install ta-lib`
+   - Windows: `pip install TA-Lib`
+   - macOS: `brew install ta-lib && pip install TA-Lib`
+   - Linux: `apt-get install ta-lib && pip install TA-Lib`
 
-4. Create a `.env` file with your configuration (or run the bot once to generate a sample):
-   ```
-   # API Configuration
-   API_KEY=your_api_key_here
+4. Create a `.env` file with your configuration (a sample will be generated on first run)
 
-   # Trading Configuration
-   SYMBOL=BTC/USDT
-   TIMEFRAME=5m
-   TRADE_AMOUNT=0.001
+## Configuration
 
-   # Mode Configuration
-   SIMULATION_MODE=true
-   SIMULATION_INITIAL_BALANCE=100.0
+The bot is configured through environment variables in a `.env` file:
 
-   # Strategy Parameters
-   SHORT_WINDOW=5
-   LONG_WINDOW=20
+```
+# API Configuration
+API_KEY=your_api_key_here
 
-   # Bot Settings
-   CHECK_INTERVAL=30
-   GENERATE_DASHBOARD_INTERVAL=10
+# Trading Configuration
+SYMBOL=BTC/USDT
+TIMEFRAME=1m
+TRADE_AMOUNT=0.001
 
-   # Directory Settings
-   DATA_DIR=simulation_data
-   ```
+# Mode Configuration
+SIMULATION_MODE=true
+SIMULATION_INITIAL_BALANCE=100.0
+
+# Strategy Parameters
+SHORT_WINDOW=3
+LONG_WINDOW=10
+
+# Bot Settings
+CHECK_INTERVAL=15
+GENERATE_DASHBOARD_INTERVAL=10
+
+# Directory Settings
+DATA_DIR=simulation_data
+```
 
 ## Usage
 
-### Run in Simulation Mode (default)
+### Basic Usage
+
+Run the bot with default settings:
 
 ```bash
 python main.py
 ```
 
-### Run with Custom Parameters
+### Advanced Usage
+
+Customize bot behavior with command line arguments:
 
 ```bash
-python main.py --symbol ETH/USDT --timeframe 15m --amount 0.01 --interval 60 --short-window 7 --long-window 25
+python main.py --symbol ETH/USDT --timeframe 5m --amount 0.01 --short-window 5 --long-window 15 --interval 30 --simulation
 ```
 
-### Available Command-line Options
+### Available Arguments
 
-- `--symbol`: Trading pair symbol (default: BTC/USDT)
-- `--timeframe`: Candle timeframe (default: 5m)
-- `--amount`: Amount to trade (default: 0.001)
-- `--interval`: Check interval in seconds (default: 30)
-- `--short-window`: Short moving average window (default: 5)
-- `--long-window`: Long moving average window (default: 20)
-- `--simulation`: Force simulation mode even if credentials exist
-- `--dashboard-only`: Generate dashboard from existing simulation data and exit
-- `--standard-strategy`: Use standard MA crossover strategy instead of enhanced strategy
-
-### Generate Dashboard Only
-
-```bash
-python main.py --dashboard-only
-```
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `--symbol` | Trading pair | BTC/USDT |
+| `--timeframe` | Candle timeframe | 1m |
+| `--amount` | Amount to trade | 0.001 |
+| `--interval` | Check interval (seconds) | 15 |
+| `--short-window` | Short MA window | 3 |
+| `--long-window` | Long MA window | 10 |
+| `--simulation` | Force simulation mode | false |
+| `--dashboard-only` | Generate dashboard and exit | false |
+| `--standard-strategy` | Use standard MA crossover | false |
+| `--scalping-mode` | Use scalping strategy | false |
+| `--take-profit` | Take profit percentage | 1.5 |
+| `--stop-loss` | Stop loss percentage | 1.0 |
 
 ## Trading Strategies
 
-### Standard Moving Average Crossover
+### Standard MA Crossover
+Classical moving average crossover strategy that generates signals when the short MA crosses above (buy) or below (sell) the long MA.
 
-The bot uses a simple Moving Average Crossover strategy:
-- **BUY** when the short MA crosses above the long MA
-- **SELL** when the short MA crosses below the long MA
+```bash
+python main.py --standard-strategy
+```
 
-### Enhanced Strategy (Default)
+### Enhanced Strategy
+Combines multiple indicators (MA crossover, RSI, MACD, Bollinger Bands) for more frequent and potentially more accurate trading signals.
 
-The enhanced strategy includes additional technical indicators:
-- **RSI** (Relative Strength Index) for overbought/oversold conditions
-- **MACD** (Moving Average Convergence/Divergence) for trend strength
-- **Bollinger Bands** for volatility and price extremes
+```bash
+python main.py
+```
 
-## Terminal Color Scheme
+### Scalping Strategy
+High-frequency trading strategy designed for very short-term trades with frequent entries and exits.
 
-The bot uses colorized terminal output for better readability:
-- 🟢 **Green**: Buy signals, positive returns, success messages
-- 🔴 **Red**: Sell signals, negative returns, error messages
-- 🟡 **Yellow**: Warnings, simulation mode info
-- 🔵 **Blue**: Informational messages, price data
-- 🟣 **Magenta**: Headers and important section dividers
+```bash
+python main.py --scalping-mode
+```
 
-## Dashboard
+## Simulation Mode
 
-The dashboard provides a comprehensive view of your trading performance:
-- Total portfolio value over time
-- Price history
-- Performance percentage
-- Trade distribution
-- Key performance metrics (returns, drawdown, win rate)
-- Daily performance chart
+Test strategies without risking real funds:
 
-Generate a dashboard any time with:
+```bash
+python main.py --simulation
+```
+
+The bot will simulate trades with an initial balance defined in your `.env` file or provided via command line arguments.
+
+## Dashboard Generation
+
+Generate performance dashboard from simulation data:
+
 ```bash
 python main.py --dashboard-only
 ```
 
-## Safety Considerations
+This will create visualization charts in the `simulation_data/dashboard` directory.
 
-- Always start in simulation mode to test your strategy
-- Use small trade amounts when starting with real trading
-- Set up proper API key permissions (read-only for testing)
-- Never share your API keys or private keys
+## Live Trading
+
+**⚠️ Warning:** Live trading involves financial risk. Use at your own risk.
+
+To enable live trading:
+1. Set `SIMULATION_MODE=false` in your `.env` file
+2. Provide a valid API key
+3. Place your RSA private key in the project root as `binance_private_key.pem`
+
+```bash
+python main.py
+```
+
+## Project Structure
+
+- `main.py`: Entry point for the application
+- `config.py`: Configuration management
+- `trading/`: Core trading functionality
+  - `bot.py`: Main bot implementation
+  - `strategies.py`: Trading strategy implementations
+  - `order.py`: Order execution
+  - `simulation.py`: Simulation logic
+  - `dashboard.py`: Performance visualization
+- `utils/`: Utility functions
+  - `api_utils.py`: API interaction
+  - `data_utils.py`: Data manipulation
+  - `terminal_colors.py`: Terminal output formatting
+
+## Performance Tracking
+
+The bot tracks performance metrics including:
+- Total portfolio value
+- Profit/loss percentage
+- Number of trades
+- Win rate
+- Average profit per trade
+- Maximum drawdown
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Disclaimer
+
+This software is for educational purposes only. Do not risk money that you are not willing to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.

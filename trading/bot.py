@@ -5,7 +5,7 @@ from datetime import datetime
 
 from utils.data_utils import prepare_ohlcv_dataframe, calculate_moving_averages
 from utils.api_utils import make_api_request
-from trading.strategies import calculate_ma_crossover_signals, calculate_enhanced_signals, get_latest_signal
+from trading.strategies import calculate_ma_crossover_signals, calculate_enhanced_signals, calculate_scalping_signals, get_latest_signal, get_latest_scalping_signal
 from trading.order import check_balance, execute_trade
 from trading.simulation import SimulationTracker, load_simulation_data
 from utils.terminal_colors import (
@@ -15,7 +15,9 @@ from utils.terminal_colors import (
 )
 
 class CryptoTradingBot:
-    def __init__(self, symbol, timeframe, api_key, base_url, amount, short_window, long_window, simulation_mode=False, use_enhanced_strategy=True):
+    def __init__(self, symbol, timeframe, api_key, base_url, amount, short_window, long_window, 
+                 simulation_mode=False, use_enhanced_strategy=True, use_scalping_strategy=False,
+                 take_profit_percentage=1.5, stop_loss_percentage=1.0):
         """
         Initialize the trading bot with exchange details and trading parameters
         
@@ -29,6 +31,9 @@ class CryptoTradingBot:
         long_window (int): Long moving average window
         simulation_mode (bool): Force simulation mode even if credentials exist
         use_enhanced_strategy (bool): Whether to use the enhanced strategy for more frequent trading
+        use_scalping_strategy (bool): Whether to use the scalping strategy for very frequent trading
+        take_profit_percentage (float): Percentage gain to trigger take profit
+        stop_loss_percentage (float): Percentage loss to trigger stop loss
         """
         # Exchange configuration
         self.symbol = symbol
@@ -50,7 +55,13 @@ class CryptoTradingBot:
         self.long_window = long_window
         
         # Strategy configuration
-        self.use_enhanced_strategy = use_enhanced_strategy
+        self.use_enhanced_strategy = use_enhanced_strategy and not use_scalping_strategy
+        self.use_scalping_strategy = use_scalping_strategy
+        
+        # Risk management parameters
+        self.take_profit_percentage = take_profit_percentage
+        self.stop_loss_percentage = stop_loss_percentage
+        self.entry_price = None
         
         # Simulation mode flag
         self.simulation_mode = simulation_mode
@@ -82,6 +93,8 @@ class CryptoTradingBot:
         print_header(f"Bot initialized for {self.symbol} on Binance using {timeframe} timeframe")
         if self.use_enhanced_strategy:
             print_info("Using enhanced trading strategy for more frequent trades")
+        elif self.use_scalping_strategy:
+            print_info("Using scalping strategy for very frequent trades!")
     
     def fetch_ohlcv_data(self, limit=100):
         """
@@ -122,7 +135,9 @@ class CryptoTradingBot:
         df = calculate_moving_averages(df, self.short_window, self.long_window)
         
         # Calculate signals based on strategy
-        if self.use_enhanced_strategy:
+        if self.use_scalping_strategy:
+            df = calculate_scalping_signals(df, self.short_window, self.long_window)
+        elif self.use_enhanced_strategy:
             df = calculate_enhanced_signals(df, self.short_window, self.long_window)
         else:
             df = calculate_ma_crossover_signals(df, self.short_window, self.long_window)
@@ -150,8 +165,17 @@ class CryptoTradingBot:
         else:
             print(f"{Colors.BG_BLUE}{Colors.WHITE} LIVE TRADING MODE {Colors.RESET} Bot will execute real trades on Binance!")
         
+        # Print strategy information
+        if self.use_scalping_strategy:
+            print_info(f"Using SCALPING strategy with {self.timeframe} candles")
+        elif self.use_enhanced_strategy:
+            print_info(f"Using ENHANCED strategy with {self.timeframe} candles")
+        else:
+            print_info(f"Using STANDARD MA CROSSOVER strategy with {self.timeframe} candles")
+        
+        print_info(f"Moving average windows: {self.short_window}/{self.long_window}")
+        print_info(f"Take profit: {self.take_profit_percentage}%, Stop loss: {self.stop_loss_percentage}%")
         print_info(f"Bot started. Checking for signals every {interval} seconds.")
-        print_info(f"Using {self.timeframe} candles with MA windows of {self.short_window}/{self.long_window}")
         
         # For simulation, determine if we're currently holding a position
         if self.in_simulation_mode and self.sim_tracker:
@@ -169,12 +193,55 @@ class CryptoTradingBot:
                 df = self.analyze_market(limit=self.long_window + 10)
                 
                 if df is not None and len(df) > 0:
-                    # Get the latest signal
-                    position_change, current_price, short_ma, long_ma = get_latest_signal(df, use_enhanced=self.use_enhanced_strategy)
+                    # Get the latest signal based on the selected strategy
+                    if self.use_scalping_strategy:
+                        position_change, current_price, ema3, ema8 = get_latest_scalping_signal(df)
+                        # Set short_ma and long_ma for consistent display
+                        short_ma, long_ma = ema3, ema8
+                    else:
+                        position_change, current_price, short_ma, long_ma = get_latest_signal(df, use_enhanced=self.use_enhanced_strategy)
                     
                     # Update simulation tracker with latest price
                     if self.in_simulation_mode and self.sim_tracker and current_price is not None:
                         self.sim_tracker.update_price(current_price)
+                    
+                    # Handle profit taking and stop loss if in position
+                    if self.in_position and self.entry_price is not None and current_price is not None:
+                        price_change_pct = ((current_price - self.entry_price) / self.entry_price) * 100
+                        
+                        # Take profit
+                        if price_change_pct >= self.take_profit_percentage:
+                            print_sell(f"TAKE PROFIT triggered at ${current_price:.2f} ({price_change_pct:.2f}%)")
+                            
+                            if self.in_simulation_mode and self.sim_tracker:
+                                # Execute simulated sell for take profit
+                                if self.sim_tracker.execute_trade('sell', self.amount, current_price):
+                                    self.in_position = False
+                                    self.entry_price = None
+                                    # Generate and save performance chart
+                                    self.sim_tracker.plot_performance()
+                            elif not self.in_simulation_mode:
+                                # Execute real sell for take profit
+                                if execute_trade('sell', self.base_url, self.api_key, self.symbol, self.amount):
+                                    self.in_position = False
+                                    self.entry_price = None
+                        
+                        # Stop loss
+                        elif price_change_pct <= -self.stop_loss_percentage:
+                            print_sell(f"STOP LOSS triggered at ${current_price:.2f} ({price_change_pct:.2f}%)")
+                            
+                            if self.in_simulation_mode and self.sim_tracker:
+                                # Execute simulated sell for stop loss
+                                if self.sim_tracker.execute_trade('sell', self.amount, current_price):
+                                    self.in_position = False
+                                    self.entry_price = None
+                                    # Generate and save performance chart
+                                    self.sim_tracker.plot_performance()
+                            elif not self.in_simulation_mode:
+                                # Execute real sell for stop loss
+                                if execute_trade('sell', self.base_url, self.api_key, self.symbol, self.amount):
+                                    self.in_position = False
+                                    self.entry_price = None
                     
                     # Check for buy signal
                     if position_change == 1:
@@ -185,12 +252,14 @@ class CryptoTradingBot:
                                 # Execute simulated trade
                                 if self.sim_tracker.execute_trade('buy', self.amount, current_price):
                                     self.in_position = True
+                                    self.entry_price = current_price  # Store entry price
                                     # Generate and save performance chart
                                     self.sim_tracker.plot_performance()
                             elif not self.in_simulation_mode:
                                 # Execute real trade
                                 if execute_trade('buy', self.base_url, self.api_key, self.symbol, self.amount):
                                     self.in_position = True
+                                    self.entry_price = current_price  # Store entry price
                         else:
                             print_warning("Already in position - skipping buy")
                     
@@ -203,12 +272,14 @@ class CryptoTradingBot:
                                 # Execute simulated trade
                                 if self.sim_tracker.execute_trade('sell', self.amount, current_price):
                                     self.in_position = False
+                                    self.entry_price = None  # Clear entry price
                                     # Generate and save performance chart
                                     self.sim_tracker.plot_performance()
                             elif not self.in_simulation_mode:
                                 # Execute real trade
                                 if execute_trade('sell', self.base_url, self.api_key, self.symbol, self.amount):
                                     self.in_position = False
+                                    self.entry_price = None  # Clear entry price
                         else:
                             print_warning("Not in position - skipping sell")
                     
@@ -216,14 +287,57 @@ class CryptoTradingBot:
                     else:
                         print_info(f"No trading signal at {datetime.now()}")
                     
-                    # Print latest prices
+                    # Print latest prices and MA values (or EMAs for scalping)
                     if current_price is not None:
                         print_price(f"Current price: ${current_price:,.2f}")
                     if short_ma is not None and long_ma is not None:
-                        print_price(f"Short MA: ${short_ma:.2f}, Long MA: ${long_ma:.2f}")
+                        if self.use_scalping_strategy:
+                            print_price(f"EMA3: ${short_ma:.2f}, EMA8: ${long_ma:.2f}")
+                        else:
+                            print_price(f"Short MA: ${short_ma:.2f}, Long MA: ${long_ma:.2f}")
                     
-                    # Print additional indicators if using enhanced strategy
-                    if self.use_enhanced_strategy and 'rsi' in df.columns and 'macd' in df.columns:
+                    # Print additional indicators based on strategy
+                    if self.use_scalping_strategy and 'fast_rsi' in df.columns and 'stoch_k' in df.columns:
+                        latest = df.iloc[-1]
+                        
+                        # Print fast RSI
+                        rsi_value = latest['fast_rsi']
+                        if rsi_value > 70:
+                            rsi_formatted = f"{Colors.RED}{rsi_value:.2f}{Colors.RESET}"
+                        elif rsi_value < 30:
+                            rsi_formatted = f"{Colors.GREEN}{rsi_value:.2f}{Colors.RESET}"
+                        else:
+                            rsi_formatted = f"{rsi_value:.2f}"
+                        
+                        # Print Stochastic
+                        stoch_k = latest['stoch_k']
+                        stoch_d = latest['stoch_d']
+                        if stoch_k > stoch_d:
+                            stoch_formatted = f"{Colors.GREEN}K:{stoch_k:.2f} D:{stoch_d:.2f}{Colors.RESET}"
+                        else:
+                            stoch_formatted = f"{Colors.RED}K:{stoch_k:.2f} D:{stoch_d:.2f}{Colors.RESET}"
+                        
+                        print_info(f"Fast RSI: {rsi_formatted}, Stochastic: {stoch_formatted}")
+                        
+                        # Print BB info
+                        if 'bb_lower' in df.columns and 'bb_upper' in df.columns:
+                            distance_to_lower = ((current_price - latest['bb_lower']) / current_price) * 100
+                            distance_to_upper = ((latest['bb_upper'] - current_price) / current_price) * 100
+                            
+                            # Color BB distances
+                            if distance_to_lower < 1:  # Very close to lower band
+                                lower_formatted = f"{Colors.GREEN}{distance_to_lower:.2f}%{Colors.RESET}"
+                            else:
+                                lower_formatted = f"{distance_to_lower:.2f}%"
+                                
+                            if distance_to_upper < 1:  # Very close to upper band
+                                upper_formatted = f"{Colors.RED}{distance_to_upper:.2f}%{Colors.RESET}"
+                            else:
+                                upper_formatted = f"{distance_to_upper:.2f}%"
+                                
+                            print_info(f"BB Distance - Lower: {lower_formatted}, Upper: {upper_formatted}")
+                    
+                    elif self.use_enhanced_strategy and 'rsi' in df.columns and 'macd' in df.columns:
                         latest = df.iloc[-1]
                         
                         # Color RSI based on overbought/oversold conditions
@@ -281,7 +395,16 @@ class CryptoTradingBot:
                             f"({profit_loss_formatted})"
                         )
                         
-                        # Generate a performance report every 10 iterations
+                        # If in position, show current trade P/L
+                        if self.in_position and self.entry_price is not None:
+                            trade_pnl_pct = ((current_price - self.entry_price) / self.entry_price) * 100
+                            trade_pnl_formatted = format_percentage(trade_pnl_pct)
+                            
+                            print_simulation(
+                                f"Current trade: Entry @ ${self.entry_price:.2f}, Current P/L: {trade_pnl_formatted}"
+                            )
+                        
+                        # Generate a performance report periodically
                         if int(time.time()) % (interval * 10) < interval:
                             report = self.sim_tracker.generate_performance_report(current_price)
                             

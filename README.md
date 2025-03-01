@@ -39,7 +39,7 @@ A versatile automated trading bot for cryptocurrency markets featuring multiple 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/crypto-trading-bot.git
+   git clone https://github.com/beborico1/crypto-trading-bot.git
    cd crypto-trading-bot
    ```
 

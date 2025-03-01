@@ -11,7 +11,7 @@ BASE_URL = 'https://api.binance.com'
 # Trading parameters
 DEFAULT_SYMBOL = os.getenv('SYMBOL', 'BTC/USDT')
 DEFAULT_TIMEFRAME = os.getenv('TIMEFRAME', '1m')  # Changed from 5m to 1m
-DEFAULT_TRADE_AMOUNT = float(os.getenv('TRADE_AMOUNT', 0.001))
+DEFAULT_TRADE_AMOUNT = float(os.getenv('TRADE_AMOUNT', 0.0001))
 
 # Mode configuration
 SIMULATION_MODE = os.getenv('SIMULATION_MODE', 'false').lower() == 'true'

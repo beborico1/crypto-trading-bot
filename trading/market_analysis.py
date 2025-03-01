@@ -5,8 +5,13 @@ Handles fetching and analyzing market data for high frequency trading.
 
 from utils.data_utils import prepare_ohlcv_dataframe, calculate_moving_averages
 from trading.strategies import calculate_ma_crossover_signals, calculate_enhanced_signals, calculate_scalping_signals, get_latest_signal, get_latest_scalping_signal, calculate_high_frequency_signals, get_high_frequency_signal
-from utils.terminal_colors import print_error, print_warning
 
+from utils.terminal_colors import (
+    print_success, print_error, print_warning, print_info, 
+    print_buy, print_sell, print_price, print_header, Colors
+)
+
+@staticmethod
 def fetch_ohlcv_data(exchange, symbol, timeframe, limit=30):
     """
     Fetch candlestick data from the exchange with optimization for high frequency
@@ -21,17 +26,28 @@ def fetch_ohlcv_data(exchange, symbol, timeframe, limit=30):
     pandas.DataFrame: OHLCV data
     """
     try:
+        # Ensure symbol is properly formatted (trim whitespace)
+        clean_symbol = symbol.strip()
+        
+        # Convert timeframes not supported by Binance to supported ones
+        binance_timeframe = timeframe
+        if timeframe in ['30s', '10s', '5s']:
+            from utils.terminal_colors import print_info
+            print_info(f"Converting {timeframe} to '1m' for Binance API compatibility")
+            binance_timeframe = '1m'
+        
         # Fetch OHLCV data using CCXT (no authentication needed)
-        ohlcv = exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
+        ohlcv = exchange.fetch_ohlcv(clean_symbol, binance_timeframe, limit=limit)
         
         # Convert to DataFrame
         df = prepare_ohlcv_dataframe(ohlcv)
         
         return df
     except Exception as e:
+        from utils.terminal_colors import print_error
         print_error(f"Error fetching data: {e}")
         return None
-
+    
 def analyze_market(exchange, symbol, timeframe, short_window, long_window, 
                    use_enhanced_strategy=False, use_scalping_strategy=False, limit=30):
     """
@@ -88,7 +104,8 @@ def get_current_price(df):
     if df is None or len(df) == 0:
         return None
     
-    return df.iloc[-1]['close']
+    # Ensure we return a float
+    return float(df.iloc[-1]['close'])
 
 def get_signal_info(df, use_enhanced_strategy=True, use_scalping_strategy=False):
     """

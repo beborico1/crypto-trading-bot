@@ -1,0 +1,637 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - High Frequency Crypto Trading Bot{% endblock %}
+
+{% block head %}
+<!-- Add additional head content -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-0">Trading Dashboard</h1>
+            <p class="text-muted">Monitor your high frequency trading bots and performance</p>
+        </div>
+        <div>
+            <button class="btn btn-sm btn-outline-light me-2" id="refresh-dashboard">
+                <i class="fas fa-sync-alt me-1"></i> Refresh
+            </button>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#startBotModal">
+                <i class="fas fa-play me-1"></i> Start New Bot
+            </button>
+        </div>
+    </div>
+
+    <!-- Overview Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon me-3">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-value" id="active-bots-count">{{ active_bots|length }}</h2>
+                            <p class="card-label mb-0">Active Bots</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon me-3">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div>
+                            <h2 class="card-value" id="total-trades">
+                                {% set total_trades = 0 %}
+                                {% for symbol, data in simulation_data.items() %}
+                                {% if data.performance %}
+                                {% set total_trades = total_trades + data.performance.trades %}
+                                {% endif %}
+                                {% endfor %}
+                                {{ total_trades }}
+                            </h2>
+                            <p class="card-label mb-0">Total Trades</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon me-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            {% set total_initial = 0 %}
+                            {% set total_current = 0 %}
+                            {% for symbol, data in simulation_data.items() %}
+                            {% if data.performance %}
+                            {% set total_initial = total_initial + data.performance.initial_value %}
+                            {% set total_current = total_current + data.performance.current_value %}
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if total_initial > 0 %}
+                            {% set overall_return = ((total_current / total_initial) - 1) * 100 %}
+                            <h2 class="card-value" data-performance-value="{{ overall_return }}"
+                                data-is-percentage="true">
+                                {{ overall_return|round(2) }}%
+                            </h2>
+                            {% else %}
+                            <h2 class="card-value" data-performance-value="0" data-is-percentage="true">
+                                0.00%
+                            </h2>
+                            {% endif %}
+                            <p class="card-label mb-0">Overall Return</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon me-3">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div>
+                            {% set total_value = 0 %}
+                            {% for symbol, data in simulation_data.items() %}
+                            {% if data.performance %}
+                            {% set total_value = total_value + data.performance.current_value %}
+                            {% endif %}
+                            {% endfor %}
+
+                            <h2 class="card-value" id="total-value">${{ total_value|round(2) }}</h2>
+                            <p class="card-label mb-0">Portfolio Value</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Overview -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Performance Overview</h5>
+                    <div>
+                        <button class="btn btn-sm btn-outline-light" id="refresh-performance">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Status</th>
+                                    <th>Current Price</th>
+                                    <th>Initial Value</th>
+                                    <th>Current Value</th>
+                                    <th>Profit/Loss</th>
+                                    <th>Return %</th>
+                                    <th>Trades</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="performance-table">
+                                {% for symbol, data in simulation_data.items() %}
+                                {% if data.performance %}
+                                <tr id="{{ symbol|replace('/', '-') }}-row">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol-icon me-2">
+                                                <i class="fab fa-bitcoin text-warning"></i>
+                                            </div>
+                                            <span>{{ symbol }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if symbol in bot_statuses and bot_statuses[symbol].status == 'running' %}
+                                        <span class="badge bg-success">Active</span>
+                                        {% else %}
+                                        <span class="badge bg-secondary">Inactive</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if symbol in bot_statuses %}
+                                        ${{ bot_statuses[symbol].price|round(2) }}
+                                        {% else %}
+                                        N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>${{ data.performance.initial_value|round(2) }}</td>
+                                    <td>${{ data.performance.current_value|round(2) }}</td>
+                                    <td data-profit-value="{{ data.performance.absolute_return }}">
+                                        {% if data.performance.absolute_return > 0 %}
+                                        +${{ data.performance.absolute_return|round(2) }}
+                                        {% elif data.performance.absolute_return < 0 %} 
+                                        -${{ (data.performance.absolute_return * -1)|round(2) }} 
+                                        {% else %} 
+                                        $0.00 
+                                        {% endif %}
+                                    </td>
+                                    <td data-performance-value="{{ data.performance.percent_return }}"
+                                        data-is-percentage="true">
+                                        {% if data.performance.percent_return > 0 %}
+                                        +{{ data.performance.percent_return|round(2) }}%
+                                        {% else %}
+                                        {{ data.performance.percent_return|round(2) }}%
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ data.performance.trades }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            {% if symbol in bot_statuses and bot_statuses[symbol].status == 'running' %}
+                                            <button class="btn btn-sm btn-danger stop-bot" data-symbol="{{ symbol }}" data-bs-toggle="tooltip" title="Stop Bot">
+                                                <i class="fas fa-stop"></i>
+                                            </button>
+                                            {% else %}
+                                            <button class="btn btn-sm btn-success start-bot-quick"
+                                                data-symbol="{{ symbol }}" data-bs-toggle="tooltip" title="Start Bot">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                            {% endif %}
+                                            <a href="/symbol/{{ symbol|replace('/', '-') }}" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="View Details">
+                                                <i class="fas fa-chart-area"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Charts -->
+    <div class="row">
+        {% for symbol, data in simulation_data.items() %}
+        {% if data.performance %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="fab fa-bitcoin text-warning me-2"></i>
+                        <h5 class="mb-0">{{ symbol }} Performance</h5>
+                    </div>
+                    <div>
+                        <span data-performance-value="{{ data.performance.percent_return }}" data-is-percentage="true">
+                            {% if data.performance.percent_return > 0 %}
+                            +{{ data.performance.percent_return|round(2) }}%
+                            {% else %}
+                            {{ data.performance.percent_return|round(2) }}%
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="performance-chart-container" data-symbol="{{ symbol }}">
+                        <div class="chart-loading text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading chart data...</p>
+                        </div>
+                        <div class="chart-error-message alert alert-danger text-center py-4" style="display: none;">
+                            <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                            <p class="error-text">Failed to load chart data.</p>
+                            <button class="btn btn-sm btn-primary btn-retry">
+                                <i class="fas fa-sync-alt me-1"></i> Retry
+                            </button>
+                        </div>
+                        <div class="performance-chart" id="{{ symbol|replace('/', '-') }}-chart" style="height: 300px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Active Bot Detailed Status -->
+    <div class="row">
+        {% for symbol, bot in active_bots.items() %}
+        <div class="col-md-12 mb-4" id="{{ symbol|replace('/', '-') }}-details">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-robot text-primary me-2"></i>
+                        <h5 class="mb-0">{{ symbol }} Bot Status</h5>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-danger stop-bot" data-symbol="{{ symbol }}">
+                            <i class="fas fa-stop me-1"></i> Stop Bot
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="status-card">
+                                <h6>Status Information</h6>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Status:</span>
+                                    <span class="{{ bot_statuses[symbol].status if symbol in bot_statuses else 'stopped' }} status-value">
+                                        {{ bot_statuses[symbol].status.capitalize() if symbol in bot_statuses else 'Stopped' }}
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Current Price:</span>
+                                    <span class="status-value">${{ bot_statuses[symbol].price|round(2) if symbol in bot_statuses else '0.00' }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Position Size:</span>
+                                    <span class="status-value">{{ bot_statuses[symbol].position_size if symbol in bot_statuses else '0.00' }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="status-label">Last Update:</span>
+                                    <span class="status-value">{{ bot_statuses[symbol].last_update.split('T')[1].split('.')[0] if
+                                        symbol in bot_statuses else 'N/A' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-card">
+                                <h6>Configuration</h6>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Strategy:</span>
+                                    <span class="status-value">{{ "High Frequency" if bot.high_frequency_mode else ("Scalping" if
+                                        bot.use_scalping_strategy else ("Enhanced" if bot.use_enhanced_strategy else "Standard MA")) }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Timeframe:</span>
+                                    <span class="status-value">{{ bot.timeframe }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">MA Windows:</span>
+                                    <span class="status-value">{{ bot.short_window }}/{{ bot.long_window }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="status-label">Mode:</span>
+                                    <span class="status-value">{{ "Simulation" if bot.in_simulation_mode else "Live Trading" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-card">
+                                <h6>Risk Management</h6>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Take Profit:</span>
+                                    <span class="status-value">{{ bot.take_profit_percentage }}%</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Stop Loss:</span>
+                                    <span class="status-value">{{ bot.stop_loss_percentage }}%</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="status-label">Base Size:</span>
+                                    <span class="status-value">{{ bot.base_position_size }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="status-label">Max Size:</span>
+                                    <span class="status-value">{{ bot.max_position_size }}×</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        // Validate the symbol before submission
+        $('#start-bot-button').click(function () {
+            const symbol = $('#symbol').val().trim();
+            if (!symbol) {
+                showToast('Please enter a valid trading pair', 'error');
+                return;
+            }
+
+            const formData = $('#start-bot-form').serialize();
+
+            $.ajax({
+                url: '/start_bot',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        showToast(response.message, 'success');
+                        $('#startBotModal').modal('hide');
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        showToast(response.message, 'error');
+                    }
+                },
+                error: function () {
+                    showToast('Failed to start bot. Check server logs for details.', 'error');
+                }
+            });
+        });
+
+        // Stop bot button
+        $('.stop-bot').click(function () {
+            const symbol = $(this).data('symbol');
+
+            $.ajax({
+                url: `/stop_bot/${symbol}`,
+                type: 'POST',
+                success: function (response) {
+                    if (response.success) {
+                        showToast(`Bot for ${symbol} stopped successfully.`, 'success');
+                        // Reload the page after a short delay
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        showToast(response.message, 'error');
+                    }
+                },
+                error: function () {
+                    showToast(`Failed to stop bot for ${symbol}.`, 'error');
+                }
+            });
+        });
+
+        // Refresh dashboard button
+        $('#refresh-dashboard').click(function () {
+            window.location.reload();
+        });
+
+        // Quick start bot with default settings
+        $('.start-bot-quick').click(function () {
+            const symbol = $(this).data('symbol');
+
+            // Set the symbol in the start bot modal
+            $('#symbol').val(symbol);
+
+            // Show the modal
+            $('#startBotModal').modal('show');
+        });
+
+        // Refresh bot status function
+        function refreshBotStatus() {
+            $.get('/all_bot_statuses', function (data) {
+                Object.keys(data).forEach(symbol => {
+                    const statusElement = $(`#${symbol.replace('/', '-')}-row td:nth-child(2) .badge`);
+                    const priceElement = $(`#${symbol.replace('/', '-')}-row td:nth-child(3)`);
+
+                    if (statusElement.length && data[symbol]) {
+                        if (data[symbol].status === 'running') {
+                            statusElement.removeClass('bg-secondary').addClass('bg-success').text('Active');
+                        } else {
+                            statusElement.removeClass('bg-success').addClass('bg-secondary').text('Inactive');
+                        }
+
+                        // Update price if available
+                        if (data[symbol].price) {
+                            priceElement.text('$' + parseFloat(data[symbol].price).toFixed(2));
+                        }
+
+                        // Also update the detailed status cards if they exist
+                        if ($(`#${symbol.replace('/', '-')}-details`).length && data[symbol]) {
+                            const statusInfoCard = $(`#${symbol.replace('/', '-')}-details .status-card:first-child`);
+                            if (statusInfoCard.length) {
+                                statusInfoCard.find('div:nth-child(1) span:nth-child(2)').text(data[symbol].status.charAt(0).toUpperCase() + data[symbol].status.slice(1));
+                                statusInfoCard.find('div:nth-child(2) span:nth-child(2)').text('$' + parseFloat(data[symbol].price).toFixed(2));
+                                statusInfoCard.find('div:nth-child(3) span:nth-child(2)').text(data[symbol].position_size);
+                                // Format the timestamp - just show the time portion
+                                if (data[symbol].last_update) {
+                                    const timestamp = data[symbol].last_update.split('T')[1].split('.')[0];
+                                    statusInfoCard.find('div:nth-child(4) span:nth-child(2)').text(timestamp);
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Update active bots count
+                $('#active-bots-count').text(Object.values(data).filter(bot => bot.status === 'running').length);
+            });
+        }
+
+        // Set up automatic refreshing
+        refreshBotStatus();
+        setInterval(refreshBotStatus, 5000);
+
+        // Initialize performance charts
+        $('.performance-chart-container').each(function () {
+            const container = $(this);
+            const symbol = container.data('symbol');
+            const chartId = `${symbol.replace('/', '-')}-chart`;
+            const loadingSpinner = container.find('.chart-loading');
+            const errorMessage = container.find('.chart-error-message');
+            const chartElement = document.getElementById(chartId);
+
+            if (!chartElement) return;
+
+            loadingSpinner.show();
+            errorMessage.hide();
+
+            // Clean symbol by trimming whitespace
+            const cleanSymbol = symbol.trim();
+
+            $.ajax({
+                url: `/performance_chart/${cleanSymbol}`,
+                type: 'GET',
+                success: function (response) {
+                    loadingSpinner.hide();
+                    if (response.success && response.chart) {
+                        try {
+                            const chartData = JSON.parse(response.chart);
+                            Plotly.newPlot(chartId, chartData.data, chartData.layout);
+                        } catch (error) {
+                            console.error('Error parsing chart JSON:', error);
+                            errorMessage.find('.error-text').text('Error rendering chart: ' + error.message);
+                            errorMessage.show();
+                        }
+                    } else {
+                        errorMessage.find('.error-text').text(response.message || 'Failed to load chart data');
+                        errorMessage.show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    loadingSpinner.hide();
+                    errorMessage.find('.error-text').text('Error loading chart: ' + (error || 'Server error'));
+                    errorMessage.show();
+                }
+            });
+        });
+
+        // Add retry functionality to chart error buttons
+        $('.btn-retry').click(function (e) {
+            e.preventDefault();
+            const container = $(this).closest('.performance-chart-container');
+            const symbol = container.data('symbol');
+            const chartId = `${symbol.replace('/', '-')}-chart`;
+            const loadingSpinner = container.find('.chart-loading');
+            const errorMessage = container.find('.chart-error-message');
+
+            loadingSpinner.show();
+            errorMessage.hide();
+
+            // Clean symbol by trimming whitespace
+            const cleanSymbol = symbol.trim();
+
+            $.ajax({
+                url: `/performance_chart/${cleanSymbol}`,
+                type: 'GET',
+                success: function (response) {
+                    loadingSpinner.hide();
+                    if (response.success && response.chart) {
+                        try {
+                            const chartData = JSON.parse(response.chart);
+                            Plotly.newPlot(chartId, chartData.data, chartData.layout);
+                        } catch (error) {
+                            console.error('Error parsing chart JSON:', error);
+                            errorMessage.find('.error-text').text('Error rendering chart: ' + error.message);
+                            errorMessage.show();
+                        }
+                    } else {
+                        errorMessage.find('.error-text').text(response.message || 'Failed to load chart data');
+                        errorMessage.show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    loadingSpinner.hide();
+                    errorMessage.find('.error-text').text('Error loading chart: ' + (error || 'Server error'));
+                    errorMessage.show();
+                }
+            });
+        });
+
+        // Format performance values consistently
+        function formatPerformanceValues() {
+            // Process all elements with performance data attributes
+            $('[data-performance-value]').each(function () {
+                const element = $(this);
+                const value = parseFloat(element.data('performance-value') || 0);
+                const isPercentage = element.data('is-percentage') === true;
+
+                // Remove existing color classes
+                element.removeClass('performance-positive performance-negative performance-neutral text-success text-danger text-info');
+
+                // Apply appropriate class and format
+                if (value > 0) {
+                    element.addClass('performance-positive text-success');
+                    element.text(`+${value.toFixed(2)}${isPercentage ? '%' : ''}`);
+                } else if (value < 0) {
+                    element.addClass('performance-negative text-danger');
+                    element.text(`${value.toFixed(2)}${isPercentage ? '%' : ''}`);
+                } else {
+                    element.addClass('performance-neutral text-info');
+                    element.text(`+0.00${isPercentage ? '%' : ''}`);
+                }
+            });
+
+            // Process all profit/loss values
+            $('[data-profit-value]').each(function () {
+                const element = $(this);
+                const value = parseFloat(element.data('profit-value') || 0);
+
+                // Remove existing color classes
+                element.removeClass('performance-positive performance-negative performance-neutral text-success text-danger text-info');
+
+                // Apply appropriate class and format
+                if (value > 0) {
+                    element.addClass('performance-positive text-success');
+                    element.text(`+$${value.toFixed(2)}`);
+                } else if (value < 0) {
+                    element.addClass('performance-negative text-danger');
+                    element.text(`-$${Math.abs(value).toFixed(2)}`);
+                } else {
+                    element.addClass('performance-neutral text-info');
+                    element.text(`$0.00`);
+                }
+            });
+        }
+
+        // Run initial formatting
+        formatPerformanceValues();
+
+        // Refresh performance button
+        $('#refresh-performance').click(function () {
+            refreshBotStatus();
+            formatPerformanceValues();
+        });
+        
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>
+{% endblock %}

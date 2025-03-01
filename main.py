@@ -8,21 +8,26 @@ import argparse
 import config
 from trading.bot import CryptoTradingBot
 from trading.order import check_balance
-from trading.dashboard import generate_dashboard
+from trading.dashboard.dashboard_main import generate_dashboard, generate_combined_dashboard
 from utils.terminal_colors import (
     print_success, print_error, print_warning, print_info, 
     print_header, Colors
 )
+from concurrent.futures import ThreadPoolExecutor
+import threading
+
+# Global list to track all trading bots
+active_bots = []
 
 def main():
     """Main entry point for the high frequency trading bot application"""
     
-    print_header("High Frequency Cryptocurrency Trading Bot")
+    print_header("High Frequency Multi-Cryptocurrency Trading Bot")
     
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='High Frequency Cryptocurrency Trading Bot')
-    parser.add_argument('--symbol', type=str, default=config.DEFAULT_SYMBOL,
-                        help=f'Trading pair symbol (default: {config.DEFAULT_SYMBOL})')
+    parser.add_argument('--symbols', type=str, default=','.join(config.DEFAULT_SYMBOLS),
+                        help=f'Trading pair symbols (default: {",".join(config.DEFAULT_SYMBOLS)})')
     parser.add_argument('--timeframe', type=str, default=config.DEFAULT_TIMEFRAME,
                         help=f'Candle timeframe (default: {config.DEFAULT_TIMEFRAME}) - use 30s for high frequency')
     parser.add_argument('--amount', type=float, default=config.DEFAULT_TRADE_AMOUNT,
@@ -53,13 +58,26 @@ def main():
                         help='Maximum position size as multiple of base amount (default: 15.0)')
     parser.add_argument('--trade-limit', type=int, default=20,
                         help='Maximum trades per minute (default: 20)')
+    parser.add_argument('--max-threads', type=int, default=10,
+                        help='Maximum number of concurrent trading threads (default: 10)')
     
     args = parser.parse_args()
+    
+    # Parse symbols list
+    symbols = [symbol.strip() for symbol in args.symbols.split(',')]
     
     # Handle dashboard-only mode
     if args.dashboard_only:
         print_info("Dashboard generation mode")
-        generate_dashboard()
+        # Generate individual dashboards
+        for symbol in symbols:
+            symbol_dir = os.path.join(config.DATA_DIR, symbol.replace('/', '_'))
+            if os.path.exists(symbol_dir):
+                print_info(f"Generating dashboard for {symbol}...")
+                generate_dashboard(output_dir=symbol_dir)
+        
+        # Generate combined dashboard
+        generate_combined_dashboard(output_dir=config.DATA_DIR)
         return
     
     # Determine simulation mode
@@ -73,13 +91,14 @@ def main():
     
     # Display configuration
     print_info("Bot Configuration:")
-    print_info(f"  Symbol: {Colors.CYAN}{args.symbol}{Colors.RESET}")
+    print_info(f"  Symbols: {Colors.CYAN}{', '.join(symbols)}{Colors.RESET}")
     print_info(f"  Timeframe: {Colors.CYAN}{args.timeframe}{Colors.RESET}")
     print_info(f"  Base Trade Amount: {Colors.CYAN}{args.amount}{Colors.RESET}")
     print_info(f"  Max Position Size: {Colors.CYAN}{args.max_position_size}x base amount{Colors.RESET}")
     print_info(f"  Check Interval: {Colors.CYAN}{args.interval} seconds{Colors.RESET}")
     print_info(f"  MA Windows: {Colors.CYAN}{args.short_window}/{args.long_window}{Colors.RESET}")
     print_info(f"  Simulation Mode: {Colors.YELLOW if simulation_mode else Colors.GREEN}{simulation_mode}{Colors.RESET}")
+    print_info(f"  Max Trading Threads: {Colors.CYAN}{args.max_threads}{Colors.RESET}")
     
     # Show strategy info
     if use_high_frequency:
@@ -106,45 +125,84 @@ def main():
         print_info(f"  Take Profit: {Colors.GREEN}{args.take_profit}%{Colors.RESET}")
         print_info(f"  Stop Loss: {Colors.RED}{args.stop_loss}%{Colors.RESET}")
     
-    # Initialize the bot with configuration
+    # Create data directories for each symbol
+    for symbol in symbols:
+        symbol_dir = os.path.join(config.DATA_DIR, symbol.replace('/', '_'))
+        os.makedirs(symbol_dir, exist_ok=True)
+    
+    # Create and start a bot for each symbol using thread pool
     try:
-        bot = CryptoTradingBot(
-            symbol=args.symbol,
-            timeframe=args.timeframe,
-            api_key=config.API_KEY,
-            base_url=config.BASE_URL,
-            amount=args.amount,
-            short_window=args.short_window,
-            long_window=args.long_window,
-            simulation_mode=simulation_mode,
-            use_enhanced_strategy=use_enhanced_strategy,
-            use_scalping_strategy=use_scalping_strategy,
-            take_profit_percentage=args.take_profit,
-            stop_loss_percentage=args.stop_loss,
-            max_position_size=args.max_position_size,
-            high_frequency_mode=use_high_frequency
-        )
-        
-        # If high frequency mode, set the trade limit
-        if use_high_frequency:
-            bot.minute_trade_limit = args.trade_limit
-        
-        # Check balance before starting (if credentials are available and not in simulation mode)
-        if config.API_KEY and not simulation_mode:
-            check_balance(config.BASE_URL, config.API_KEY, args.symbol)
-        
-        # Run the bot
-        bot.run_bot(interval=args.interval)
+        with ThreadPoolExecutor(max_workers=min(len(symbols), args.max_threads)) as executor:
+            for symbol in symbols:
+                print_header(f"Starting bot for {symbol}...")
+                
+                # Create data directory for this symbol
+                symbol_dir = os.path.join(config.DATA_DIR, symbol.replace('/', '_'))
+                
+                # Initialize the bot with configuration
+                bot = CryptoTradingBot(
+                    symbol=symbol,
+                    timeframe=args.timeframe,
+                    api_key=config.API_KEY,
+                    base_url=config.BASE_URL,
+                    amount=args.amount,
+                    short_window=args.short_window,
+                    long_window=args.long_window,
+                    simulation_mode=simulation_mode,
+                    use_enhanced_strategy=use_enhanced_strategy,
+                    use_scalping_strategy=use_scalping_strategy,
+                    take_profit_percentage=args.take_profit,
+                    stop_loss_percentage=args.stop_loss,
+                    max_position_size=args.max_position_size,
+                    high_frequency_mode=use_high_frequency,
+                    data_dir=symbol_dir
+                )
+                
+                # If high frequency mode, set the trade limit
+                if use_high_frequency:
+                    bot.minute_trade_limit = args.trade_limit
+                
+                # Add to global list of active bots
+                active_bots.append(bot)
+                
+                # Check balance before starting (if credentials are available and not in simulation mode)
+                if config.API_KEY and not simulation_mode:
+                    check_balance(config.BASE_URL, config.API_KEY, symbol)
+                
+                # Submit bot to thread pool
+                executor.submit(bot.run_bot, args.interval)
     
     except Exception as e:
-        print_error(f"Error initializing bot: {e}")
+        print_error(f"Error initializing bots: {e}")
         import traceback
         traceback.print_exc()
+    
+    # Wait for KeyboardInterrupt
+    try:
+        # Keep main thread alive
+        main_thread = threading.current_thread()
+        for thread in threading.enumerate():
+            if thread is not main_thread:
+                thread.join()
+    except KeyboardInterrupt:
+        print_warning("\nBots stopped by user. Generating final dashboards...")
+        for symbol in symbols:
+            symbol_dir = os.path.join(config.DATA_DIR, symbol.replace('/', '_'))
+            generate_dashboard(output_dir=symbol_dir)
+        
+        # Generate combined dashboard
+        generate_combined_dashboard(output_dir=config.DATA_DIR)
+        print_success("Goodbye!")
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
         print_warning("\nBot stopped by user. Generating final dashboard...")
-        generate_dashboard()
+        for bot in active_bots:
+            symbol_dir = os.path.join(config.DATA_DIR, bot.symbol.replace('/', '_'))
+            generate_dashboard(output_dir=symbol_dir)
+        
+        # Generate combined dashboard
+        generate_combined_dashboard(output_dir=config.DATA_DIR)
         print_success("Goodbye!")

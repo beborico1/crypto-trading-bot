@@ -10,7 +10,7 @@ from utils.terminal_colors import (
 from trading.execution.position_management import display_position_info
 from trading.market_analysis import extract_high_frequency_indicators
 
-def display_market_info(bot, df, current_price):
+def display_market_info(bot, df, current_price, symbol_prefix=""):
     """
     Display market information and technical indicators optimized for high frequency trading
     
@@ -18,6 +18,7 @@ def display_market_info(bot, df, current_price):
     bot (CryptoTradingBot): Bot instance
     df (pandas.DataFrame): DataFrame with technical indicators
     current_price (float): Current market price
+    symbol_prefix (str): Prefix to use in log messages
     """
     if df is None or len(df) == 0 or current_price is None:
         return
@@ -29,7 +30,7 @@ def display_market_info(bot, df, current_price):
     indicators = extract_high_frequency_indicators(df)
     
     # Print timestamp and price information
-    print_price(f"[{timestamp}] Current price: ${current_price:,.2f}")
+    print_price(f"{symbol_prefix}[{timestamp}] Current price: ${float(current_price):,.2f}")
     
     # Show price change since last update if available
     if 'price_change_pct' in indicators:
@@ -40,11 +41,11 @@ def display_market_info(bot, df, current_price):
             change_formatted = f"{Colors.RED}{change_pct:.4f}%{Colors.RESET}"
         else:
             change_formatted = f"{change_pct:.4f}%"
-        print_price(f"Change: {change_formatted}")
+        print_price(f"{symbol_prefix}Change: {change_formatted}")
     
     # Print EMA values
     if 'ema1' in indicators and 'ema3' in indicators:
-        print_price(f"EMA1: ${indicators['ema1']:.2f}, EMA3: ${indicators['ema3']:.2f}")
+        print_price(f"{symbol_prefix}EMA1: ${indicators['ema1']:.2f}, EMA3: ${indicators['ema3']:.2f}")
     
     # Print RSI and Stochastic
     if 'fast_rsi' in indicators and 'stoch_k' in indicators and 'stoch_d' in indicators:
@@ -65,7 +66,7 @@ def display_market_info(bot, df, current_price):
         else:
             stoch_formatted = f"{Colors.RED}K:{stoch_k:.1f} D:{stoch_d:.1f}{Colors.RESET}"
         
-        print_info(f"Fast RSI: {rsi_formatted}, Stochastic: {stoch_formatted}")
+        print_info(f"{symbol_prefix}Fast RSI: {rsi_formatted}, Stochastic: {stoch_formatted}")
     
     # Print Bollinger Band information
     if 'bb_lower' in indicators and 'bb_upper' in indicators and current_price is not None:
@@ -90,7 +91,7 @@ def display_market_info(bot, df, current_price):
         else:
             upper_formatted = f"{distance_to_upper:.3f}%"
             
-        print_info(f"BB Distance - Lower: {lower_formatted}, Upper: {upper_formatted}")
+        print_info(f"{symbol_prefix}BB Distance - Lower: {lower_formatted}, Upper: {upper_formatted}")
         
         # Show volatility if available
         if 'bb_width' in indicators:
@@ -102,7 +103,7 @@ def display_market_info(bot, df, current_price):
                 vol_formatted = f"{Colors.YELLOW}Volatility: {bb_width:.3f}%{Colors.RESET} (Medium)"
             else:  # Low volatility
                 vol_formatted = f"{Colors.GREEN}Volatility: {bb_width:.3f}%{Colors.RESET} (Low)"
-            print_info(vol_formatted)
+            print_info(f"{symbol_prefix}{vol_formatted}")
     
     # Display position information
-    display_position_info(bot, current_price)
+    display_position_info(bot, current_price, symbol_prefix)

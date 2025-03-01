@@ -1,89 +1,104 @@
-# utils/terminal_colors.py
-from colorama import init, Fore, Back, Style
+"""
+Terminal color utilities for console output formatting
+"""
 
-# Initialize colorama
-init(autoreset=True)
-
-# Color definitions
 class Colors:
-    # Text colors
-    GREEN = Fore.GREEN
-    RED = Fore.RED
-    YELLOW = Fore.YELLOW
-    BLUE = Fore.BLUE
-    CYAN = Fore.CYAN
-    MAGENTA = Fore.MAGENTA
-    WHITE = Fore.WHITE
-    BLACK = Fore.BLACK
-    
-    # Background colors
-    BG_GREEN = Back.GREEN
-    BG_RED = Back.RED
-    BG_YELLOW = Back.YELLOW
-    BG_BLUE = Back.BLUE
-    
-    # Text styles
-    BOLD = Style.BRIGHT
-    NORMAL = Style.NORMAL
-    RESET = Style.RESET_ALL
+    """ANSI color codes for terminal output"""
+    HEADER = '\033[95m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'  # Added YELLOW (same as WARNING)
+    WARNING = '\033[93m'
+    RED = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    RESET = '\033[0m'  # Alias for ENDC for compatibility
 
-# Helper functions for formatted output
-def print_success(message):
-    """Print a success message in green"""
-    print(f"{Colors.GREEN}{Colors.BOLD}{message}{Colors.RESET}")
+def print_header(text):
+    """Print bold header text"""
+    print(f"{Colors.HEADER}{Colors.BOLD}{text}{Colors.ENDC}")
 
-def print_error(message):
-    """Print an error message in red"""
-    print(f"{Colors.RED}{Colors.BOLD}{message}{Colors.RESET}")
+def print_success(text):
+    """Print success message in green"""
+    print(f"{Colors.GREEN}✓ {text}{Colors.ENDC}")
 
-def print_warning(message):
-    """Print a warning message in yellow"""
-    print(f"{Colors.YELLOW}{Colors.BOLD}{message}{Colors.RESET}")
+def print_error(text):
+    """Print error message in red"""
+    print(f"{Colors.RED}✗ {text}{Colors.ENDC}")
 
-def print_info(message):
-    """Print an info message in blue"""
-    print(f"{Colors.BLUE}{message}{Colors.RESET}")
+def print_warning(text):
+    """Print warning message in yellow"""
+    print(f"{Colors.WARNING}⚠ {text}{Colors.ENDC}")
 
-def print_buy(message):
-    """Print a buy signal message"""
-    print(f"{Colors.BG_GREEN}{Colors.BLACK} BUY {Colors.RESET} {Colors.GREEN}{message}{Colors.RESET}")
+def print_info(text):
+    """Print info message in blue"""
+    print(f"{Colors.BLUE}ℹ {text}{Colors.ENDC}")
 
-def print_sell(message):
-    """Print a sell signal message"""
-    print(f"{Colors.BG_RED}{Colors.BLACK} SELL {Colors.RESET} {Colors.RED}{message}{Colors.RESET}")
+def print_buy(text):
+    """Print buy operation in green"""
+    print(f"{Colors.GREEN}BUY → {text}{Colors.ENDC}")
 
-def print_price(message):
-    """Print price information in cyan"""
-    print(f"{Colors.CYAN}{message}{Colors.RESET}")
+def print_sell(text):
+    """Print sell operation in red"""
+    print(f"{Colors.RED}SELL ← {text}{Colors.ENDC}")
 
-def print_header(message):
-    """Print a header in magenta"""
-    print(f"\n{Colors.MAGENTA}{Colors.BOLD}{message}{Colors.RESET}")
+def print_signal(text, signal_type):
+    """Print signal with appropriate color"""
+    if signal_type.lower() == 'buy':
+        print(f"{Colors.GREEN}SIGNAL ↑ {text}{Colors.ENDC}")
+    elif signal_type.lower() == 'sell':
+        print(f"{Colors.RED}SIGNAL ↓ {text}{Colors.ENDC}")
+    else:
+        print(f"{Colors.BLUE}SIGNAL - {text}{Colors.ENDC}")
 
-def print_simulation(message):
-    """Print simulation information"""
-    print(f"{Colors.YELLOW}SIMULATION: {message}{Colors.RESET}")
+def print_simulation(text):
+    """Print simulation message in cyan"""
+    print(f"{Colors.CYAN}SIM » {text}{Colors.ENDC}")
 
-def print_position_update(message):
-    """Print a position update message in purple"""
-    print(f"{Colors.MAGENTA}POSITION: {message}{Colors.RESET}")
-
+def print_price(price, prev_price=None):
+    """Print price with color based on change"""
+    # Ensure price is a float
+    try:
+        price = float(price)
+        if prev_price is not None:
+            prev_price = float(prev_price)
+    except (ValueError, TypeError):
+        print(f"PRICE = ${price}")
+        return
+        
+    # Rest of the function remains the same
+    if prev_price is None:
+        print(f"PRICE = ${price:.2f}")
+    else:
+        if price > prev_price:
+            print(f"{Colors.GREEN}PRICE ↑ ${price:.2f} (+{(price-prev_price):.2f}){Colors.ENDC}")
+        elif price < prev_price:
+            print(f"{Colors.RED}PRICE ↓ ${price:.2f} (-{(prev_price-price):.2f}){Colors.ENDC}")
+        else:
+            print(f"{Colors.BLUE}PRICE = ${price:.2f} (0.00){Colors.ENDC}")
+            
 def format_profit(value, include_sign=True):
-    """Format profit value with color (green for positive, red for negative)"""
+    """Format profit value with color and sign"""
     if value > 0:
         sign = "+" if include_sign else ""
-        return f"{Colors.GREEN}{sign}{value:.2f}{Colors.RESET}"
+        return f"{Colors.GREEN}{sign}${value:.2f}{Colors.ENDC}"
     elif value < 0:
-        return f"{Colors.RED}{value:.2f}{Colors.RESET}"
+        return f"{Colors.RED}-${abs(value):.2f}{Colors.ENDC}"
     else:
-        return f"{value:.2f}"
-
-def format_percentage(percentage, include_sign=True):
-    """Format percentage with color (green for positive, red for negative)"""
-    if percentage > 0:
+        # Zero values - use neutral color (blue)
         sign = "+" if include_sign else ""
-        return f"{Colors.GREEN}{sign}{percentage:.2f}%{Colors.RESET}"
-    elif percentage < 0:
-        return f"{Colors.RED}{percentage:.2f}%{Colors.RESET}"
+        return f"{Colors.BLUE}{sign}${value:.2f}{Colors.ENDC}"
+
+def format_percentage(value, include_sign=True):
+    """Format percentage value with color and sign"""
+    if value > 0:
+        sign = "+" if include_sign else ""
+        return f"{Colors.GREEN}{sign}{value:.2f}%{Colors.ENDC}"
+    elif value < 0:
+        return f"{Colors.RED}{value:.2f}%{Colors.ENDC}"
     else:
-        return f"{percentage:.2f}%"
+        # Zero values - use neutral color (blue)
+        sign = "+" if include_sign else ""
+        return f"{Colors.BLUE}{sign}{value:.2f}%{Colors.ENDC}"

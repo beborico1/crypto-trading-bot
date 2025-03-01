@@ -14,7 +14,7 @@ from utils.terminal_colors import (
 )
 
 class SimulationTracker:
-    def __init__(self, initial_balance=100.0, base_currency='BTC', quote_currency='USDT'):
+    def __init__(self, initial_balance=100.0, base_currency='BTC', quote_currency='USDT', data_dir='simulation_data'):
         """
         Initialize the simulation tracker
 
@@ -22,6 +22,7 @@ class SimulationTracker:
         initial_balance (float): Initial balance in quote currency (e.g., USDT)
         base_currency (str): Base currency (e.g., BTC)
         quote_currency (str): Quote currency (e.g., USDT)
+        data_dir (str): Directory to store simulation data
         """
         self.quote_balance = initial_balance
         self.base_balance = 0.0
@@ -35,8 +36,11 @@ class SimulationTracker:
             'total_value_in_quote': self.quote_balance
         }]
         
+        # Store the data directory
+        self.data_dir = data_dir
+        
         # Create simulation data directory if it doesn't exist
-        os.makedirs('simulation_data', exist_ok=True)
+        os.makedirs(self.data_dir, exist_ok=True)
         
         print_simulation(f"Started with {initial_balance} {quote_currency}")
     
@@ -96,7 +100,9 @@ class SimulationTracker:
             'price': price,
             'value': amount * price,
             'quote_balance_after': self.quote_balance,
-            'base_balance_after': self.base_balance
+            'base_balance_after': self.base_balance,
+            'base_currency': self.base_currency,
+            'quote_currency': self.quote_currency
         }
         self.transaction_history.append(transaction)
         
@@ -176,13 +182,13 @@ class SimulationTracker:
         
         # Save to CSV files
         if not transactions_df.empty:
-            transactions_df.to_csv('simulation_data/transactions.csv', index=False)
+            transactions_df.to_csv(os.path.join(self.data_dir, 'transactions.csv'), index=False)
         
         if not balance_df.empty:
-            balance_df.to_csv('simulation_data/balance_history.csv', index=False)
+            balance_df.to_csv(os.path.join(self.data_dir, 'balance_history.csv'), index=False)
         
         # Also save as JSON for easier loading
-        with open('simulation_data/simulation_data.json', 'w') as f:
+        with open(os.path.join(self.data_dir, 'simulation_data.json'), 'w') as f:
             json.dump({
                 'transactions': self.transaction_history,
                 'balance_history': self.balance_history
@@ -239,10 +245,12 @@ class SimulationTracker:
             'avg_sell_price': avg_sell_price,
             'current_position': 'In market' if current['base_balance'] > 0 else 'In cash',
             'start_time': initial['timestamp'],
-            'current_time': datetime.now().isoformat()
+            'current_time': datetime.now().isoformat(),
+            'base_currency': self.base_currency,
+            'quote_currency': self.quote_currency
         }
     
-    def plot_performance(self, save_path='simulation_data/performance_chart.png'):
+    def plot_performance(self, save_path=None):
         """
         Generate and save a performance chart
 
@@ -254,6 +262,10 @@ class SimulationTracker:
         """
         if not self.balance_history:
             return "No data to plot"
+        
+        # If no save path provided, use the data directory
+        if save_path is None:
+            save_path = os.path.join(self.data_dir, 'performance_chart.png')
         
         # Convert to DataFrame for easier plotting
         df = pd.DataFrame(self.balance_history)
@@ -301,20 +313,20 @@ class SimulationTracker:
         print_success(f"Performance chart saved to: {save_path}")
         return save_path
 
-def load_simulation_data():
+def load_simulation_data(data_dir='simulation_data'):
     """
     Load existing simulation data from files
+    
+    Parameters:
+    data_dir (str): Directory where simulation data is stored
     
     Returns:
     tuple: (SimulationTracker instance, success boolean)
     """
-    import os
-    import json
-    
     # Check if simulation data file exists
-    data_file = os.path.join('simulation_data', 'simulation_data.json')
+    data_file = os.path.join(data_dir, 'simulation_data.json')
     if not os.path.exists(data_file):
-        print("No existing simulation data found.")
+        print(f"No existing simulation data found in {data_dir}.")
         return None, False
     
     try:
@@ -344,12 +356,21 @@ def load_simulation_data():
                     base_currency = transaction.get('base_currency')
                     quote_currency = transaction.get('quote_currency')
                     break
+            # If not in transaction, try to extract from the symbol directory name
+            if base_currency == 'BTC' and quote_currency == 'USDT':
+                dir_name = os.path.basename(data_dir)
+                if '_' in dir_name:
+                    symbol_parts = dir_name.split('_')
+                    if len(symbol_parts) == 2:
+                        base_currency = symbol_parts[0]
+                        quote_currency = symbol_parts[1]
         
         # Create a new simulation tracker with the loaded initial balance
         sim_tracker = SimulationTracker(
             initial_balance=quote_balance,
             base_currency=base_currency,
-            quote_currency=quote_currency
+            quote_currency=quote_currency,
+            data_dir=data_dir
         )
         
         # Restore transaction history and balance history

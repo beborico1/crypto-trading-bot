@@ -1,0 +1,274 @@
+
+{% extends "base.html" %}
+
+{% block title %}Configuration - High Frequency Crypto Trading Bot{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Bot Configuration</h1>
+        <div>
+            <button class="btn btn-primary" id="save-config-btn">
+                <i class="fas fa-save me-1"></i> Save Configuration
+            </button>
+        </div>
+    </div>
+    
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> {{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Global Configuration</h5>
+                </div>
+                <div class="card-body">
+                    <form id="config-form" method="post" action="/config">
+                        <h6 class="mb-3">API Settings</h6>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="api_key" class="form-label">API Key</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="api_key" name="api_key" value="{{ config.API_KEY }}" placeholder="Your Binance API key">
+                                    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#apiKeyHelp" aria-expanded="false" aria-controls="apiKeyHelp">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </div>
+                                <div class="collapse mt-2" id="apiKeyHelp">
+                                    <div class="card card-body">
+                                        <p class="small mb-0">API key is required for live trading. For simulation mode, you can leave this empty.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-outline-primary" id="test-connection">
+                                    <i class="fas fa-plug me-1"></i> Test Exchange Connection
+                                </button>
+                                <div id="connection-result" class="mt-2"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-3">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Important:</strong> Sub-minute timeframes (like 30s, 10s, 5s) are not directly supported by the Binance API. 
+                            The bot will use 1-minute candles but check signals more frequently based on your check interval setting.
+                        </div>
+                        
+                        <h6 class="mb-3">Default Trading Settings</h6>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="symbols" class="form-label">Default Symbols</label>
+                                <select class="form-select" id="symbols" name="symbols" multiple data-placeholder="Select trading pairs" style="height: 150px;">
+                                    <option value="BTC/USDT" {% if "BTC/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>BTC/USDT</option>
+                                    <option value="ETH/USDT" {% if "ETH/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>ETH/USDT</option>
+                                    <option value="SOL/USDT" {% if "SOL/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>SOL/USDT</option>
+                                    <option value="XRP/USDT" {% if "XRP/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>XRP/USDT</option>
+                                    <option value="BNB/USDT" {% if "BNB/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>BNB/USDT</option>
+                                    <option value="ADA/USDT" {% if "ADA/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>ADA/USDT</option>
+                                    <option value="DOGE/USDT" {% if "DOGE/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>DOGE/USDT</option>
+                                    <option value="DOT/USDT" {% if "DOT/USDT" in config.DEFAULT_SYMBOLS %}selected{% endif %}>DOT/USDT</option>
+                                </select>
+                                <div class="form-text">Hold Ctrl/Cmd to select multiple pairs</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="timeframe" class="form-label">Default Timeframe</label>
+                                <select class="form-select" id="timeframe" name="timeframe">
+                                    <option value="1m" {% if config.DEFAULT_TIMEFRAME == '1m' %}selected{% endif %}>1 minute</option>
+                                    <option value="5m" {% if config.DEFAULT_TIMEFRAME == '5m' %}selected{% endif %}>5 minutes</option>
+                                    <option value="15m" {% if config.DEFAULT_TIMEFRAME == '15m' %}selected{% endif %}>15 minutes</option>
+                                    <option value="30m" {% if config.DEFAULT_TIMEFRAME == '30m' %}selected{% endif %}>30 minutes</option>
+                                    <option value="1h" {% if config.DEFAULT_TIMEFRAME == '1h' %}selected{% endif %}>1 hour</option>
+                                </select>
+                                <div class="form-text">Binance API supported timeframes. For high frequency trading, use 1 minute with a short check interval.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="trade_amount" class="form-label">Default Trade Amount</label>
+                                <input type="number" class="form-control" id="trade_amount" name="trade_amount" value="{{ config.DEFAULT_TRADE_AMOUNT }}" step="0.0001" min="0.0001">
+                                <div class="form-text">Base position size for each trade</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="check_interval" class="form-label">Check Interval (seconds)</label>
+                                <input type="number" class="form-control" id="check_interval" name="check_interval" value="{{ config.CHECK_INTERVAL }}" min="1" max="60">
+                                <div class="form-text">How often to check for signals</div>
+                            </div>
+                        </div>
+                        
+                        <h6 class="mb-3">Strategy Parameters</h6>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="short_window" class="form-label">Short Moving Average Window</label>
+                                <input type="number" class="form-control" id="short_window" name="short_window" value="{{ config.SHORT_WINDOW }}" min="1" max="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="long_window" class="form-label">Long Moving Average Window</label>
+                                <input type="number" class="form-control" id="long_window" name="long_window" value="{{ config.LONG_WINDOW }}" min="2" max="200">
+                            </div>
+                        </div>
+                        
+                        <h6 class="mb-3">Mode Configuration</h6>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="simulation_mode" name="simulation_mode" value="true" {% if config.SIMULATION_MODE %}checked{% endif %}>
+                            <label class="form-check-label" for="simulation_mode">
+                                Simulation Mode (No real trades)
+                            </label>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="sim_initial_balance" class="form-label">Simulation Initial Balance</label>
+                                <input type="number" class="form-control" id="sim_initial_balance" name="sim_initial_balance" value="{{ config.SIMULATION_INITIAL_BALANCE }}" step="0.01" min="1">
+                                <div class="form-text">Starting balance for simulation in USDT</div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Save Configuration
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Configuration Tips</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Strategy Parameters</h6>
+                    <p>For high frequency trading, use short moving average windows:</p>
+                    <ul>
+                        <li><strong>Short Window:</strong> 2-3 periods</li>
+                        <li><strong>Long Window:</strong> 5-10 periods</li>
+                    </ul>
+                    
+                    <h6>Timeframes</h6>
+                    <p>Recommended timeframes for different strategies:</p>
+                    <ul>
+                        <li><strong>High Frequency:</strong> 1m (with 2-5s check interval)</li>
+                        <li><strong>Scalping:</strong> 1m-5m</li>
+                        <li><strong>Enhanced:</strong> 5m-15m</li>
+                        <li><strong>Standard:</strong> 15m-1h</li>
+                    </ul>
+                    
+                    <h6>Check Interval</h6>
+                    <p>How often the bot checks for new signals:</p>
+                    <ul>
+                        <li><strong>High Frequency:</strong> 2-5 seconds</li>
+                        <li><strong>Scalping:</strong> 5-10 seconds</li>
+                        <li><strong>Enhanced/Standard:</strong> 10-30 seconds</li>
+                    </ul>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Note:</strong> These settings are just default values. You can override them when starting each bot.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Data Directory</h5>
+                </div>
+                <div class="card-body">
+                    <p>Current data directory: <code>{{ config.DATA_DIR }}</code></p>
+                    
+                    <p>This directory stores:</p>
+                    <ul>
+                        <li>Simulation data</li>
+                        <li>Transaction history</li>
+                        <li>Performance charts</li>
+                        <li>Bot metrics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // Auto-submit the form when "Save Configuration" button is clicked
+        $('#save-config-btn').click(function() {
+            $('#config-form').submit();
+        });
+        
+        // Handle simulation mode checkbox
+        $('#simulation_mode').change(function() {
+            if ($(this).is(':checked')) {
+                $('#sim_initial_balance').prop('disabled', false);
+            } else {
+                $('#sim_initial_balance').prop('disabled', true);
+            }
+        });
+        
+        // Initialize the simulation balance field state
+        $('#simulation_mode').trigger('change');
+        
+        // Form validation before submission
+        $('#config-form').submit(function(e) {
+            let isValid = true;
+            
+            // Check if at least one symbol is selected
+            const symbols = $('#symbols').val();
+            if (!symbols || symbols.length === 0) {
+                alert('Please select at least one trading pair');
+                isValid = false;
+            }
+            
+            // Check trade amount is positive
+            const tradeAmount = parseFloat($('#trade_amount').val());
+            if (isNaN(tradeAmount) || tradeAmount <= 0) {
+                alert('Trade amount must be a positive number');
+                isValid = false;
+            }
+            
+            // Check MA windows
+            const shortWindow = parseInt($('#short_window').val());
+            const longWindow = parseInt($('#long_window').val());
+            if (shortWindow >= longWindow) {
+                alert('Short window must be smaller than long window');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+        
+        // Test exchange connection
+        $('#test-connection').click(function() {
+            const resultDiv = $('#connection-result');
+            resultDiv.html('<div class="spinner-border spinner-border-sm text-primary" role="status"></div> Testing connection...');
+            
+            $.ajax({
+                url: '/test_connection',
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        resultDiv.html('<div class="alert alert-success">Connection successful! Exchange status: ' + response.status + '</div>');
+                    } else {
+                        resultDiv.html('<div class="alert alert-danger">Connection failed: ' + response.message + '</div>');
+                    }
+                },
+                error: function() {
+                    resultDiv.html('<div class="alert alert-danger">Error testing connection. Check server logs.</div>');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

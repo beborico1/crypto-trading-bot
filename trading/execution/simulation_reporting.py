@@ -9,7 +9,7 @@ from utils.terminal_colors import (
     format_profit, format_percentage, Colors
 )
 
-def log_simulation_state(bot, current_price, action=None, amount=None, price=None):
+def log_simulation_state(bot, current_price, action=None, amount=None, price=None, symbol_prefix=""):
     """
     Log detailed information about the current simulation state for high frequency trading
 
@@ -19,6 +19,7 @@ def log_simulation_state(bot, current_price, action=None, amount=None, price=Non
     action (str, optional): Trade action ('buy' or 'sell')
     amount (float, optional): Amount traded 
     price (float, optional): Price at which the trade occurred
+    symbol_prefix (str): Prefix to use in log messages
     """
     if not bot.in_simulation_mode or not bot.sim_tracker:
         return
@@ -33,12 +34,12 @@ def log_simulation_state(bot, current_price, action=None, amount=None, price=Non
     
     # Print action header if this is after a trade
     if action and amount and price:
-        print_simulation(f"=== HF TRADE {timestamp}: {action.upper()} {amount} {base_currency} @ ${price:.2f} ===")
+        print_simulation(f"{symbol_prefix}=== HF TRADE {timestamp}: {action.upper()} {amount} {base_currency} @ ${price:.2f} ===")
     else:
-        print_simulation(f"=== BALANCE UPDATE {timestamp} ===")
+        print_simulation(f"{symbol_prefix}=== BALANCE UPDATE {timestamp} ===")
     
     # Print core balance information
-    print_simulation(f"Balance: {balance['quote_balance']:.2f} {quote_currency} | "
+    print_simulation(f"{symbol_prefix}Balance: {balance['quote_balance']:.2f} {quote_currency} | "
                    f"{balance['base_balance']:.6f} {base_currency}")
     
     # Calculate value of holdings
@@ -48,13 +49,13 @@ def log_simulation_state(bot, current_price, action=None, amount=None, price=Non
     quote_pct = (balance['quote_balance'] / total_value * 100) if total_value > 0 else 0
     
     # Print value distribution
-    print_simulation(f"Value: {total_value:.2f} {quote_currency} @ ${current_price:.2f}")
+    print_simulation(f"{symbol_prefix}Value: {total_value:.2f} {quote_currency} @ ${current_price:.2f}")
     
     # Print profit/loss if available
     if 'profit_loss' in balance and 'profit_loss_pct' in balance:
         profit_formatted = format_profit(balance['profit_loss'])
         pct_formatted = format_percentage(balance['profit_loss_pct'])
-        print_simulation(f"P/L: {profit_formatted} {quote_currency} ({pct_formatted})")
+        print_simulation(f"{symbol_prefix}P/L: {profit_formatted} {quote_currency} ({pct_formatted})")
     
     # Print trade counts if available
     if hasattr(bot.sim_tracker, 'transaction_history'):
@@ -70,9 +71,9 @@ def log_simulation_state(bot, current_price, action=None, amount=None, price=Non
             recent_trades = sum(1 for t in bot.sim_tracker.transaction_history 
                               if (now - datetime.fromisoformat(t['timestamp'])).total_seconds() < 60)
         
-        print_simulation(f"Trades: {trade_count} total | {recent_trades}/min rate | {buy_count} buys | {sell_count} sells")
+        print_simulation(f"{symbol_prefix}Trades: {trade_count} total | {recent_trades}/min rate | {buy_count} buys | {sell_count} sells")
 
-def log_simulation_trade_detail(bot, action, amount, price, current_price):
+def log_simulation_trade_detail(bot, action, amount, price, current_price, symbol_prefix=""):
     """
     Log detailed information about a specific simulation trade for high frequency trading
 
@@ -82,6 +83,7 @@ def log_simulation_trade_detail(bot, action, amount, price, current_price):
     amount (float): Amount traded
     price (float): Price at which the trade occurred
     current_price (float): Current market price
+    symbol_prefix (str): Prefix to use in log messages
     """
     if not bot.in_simulation_mode or not bot.sim_tracker:
         return
@@ -92,19 +94,19 @@ def log_simulation_trade_detail(bot, action, amount, price, current_price):
     
     if action.lower() == 'buy':
         cost = amount * price * 1.001  # Including 0.1% fee
-        print_simulation(f"[{timestamp}] Bought {amount} {base_currency} at ${price:.2f}")
-        print_simulation(f"Cost: {cost:.4f} {quote_currency} (with 0.1% fee)")
+        print_simulation(f"{symbol_prefix}[{timestamp}] Bought {amount} {base_currency} at ${price:.2f}")
+        print_simulation(f"{symbol_prefix}Cost: {cost:.4f} {quote_currency} (with 0.1% fee)")
         
         # Show position information
         if bot.position_entry_prices:
             avg_entry = sum(p[0] * p[1] for p in bot.position_entry_prices) / sum(p[0] for p in bot.position_entry_prices)
-            print_simulation(f"Avg entry: ${avg_entry:.2f} | Position: {bot.current_position_size} {base_currency} "
+            print_simulation(f"{symbol_prefix}Avg entry: ${avg_entry:.2f} | Position: {bot.current_position_size} {base_currency} "
                            f"({bot.current_position_size / (bot.max_position_size * bot.base_position_size) * 100:.1f}% of max)")
         
     elif action.lower() == 'sell':
         proceeds = amount * price * 0.999  # After 0.1% fee
-        print_simulation(f"[{timestamp}] Sold {amount} {base_currency} at ${price:.2f}")
-        print_simulation(f"Proceeds: {proceeds:.4f} {quote_currency} (after 0.1% fee)")
+        print_simulation(f"{symbol_prefix}[{timestamp}] Sold {amount} {base_currency} at ${price:.2f}")
+        print_simulation(f"{symbol_prefix}Proceeds: {proceeds:.4f} {quote_currency} (after 0.1% fee)")
         
         # Calculate profit/loss
         if hasattr(bot, 'position_entry_prices') and bot.position_entry_prices:
@@ -119,8 +121,8 @@ def log_simulation_trade_detail(bot, action, amount, price, current_price):
             if entry_price > 0:
                 profit_pct = ((price / entry_price) - 1) * 100
                 profit_formatted = format_percentage(profit_pct)
-                print_simulation(f"Trade P/L: {profit_formatted}")
+                print_simulation(f"{symbol_prefix}Trade P/L: {profit_formatted}")
         
         # Print remaining position
-        print_simulation(f"Remaining: {bot.current_position_size} {base_currency} "
+        print_simulation(f"{symbol_prefix}Remaining: {bot.current_position_size} {base_currency} "
                        f"({bot.current_position_size / (bot.max_position_size * bot.base_position_size) * 100:.1f}% of max)")

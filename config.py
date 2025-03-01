@@ -8,8 +8,8 @@ load_dotenv()
 API_KEY = os.getenv('API_KEY')
 BASE_URL = 'https://api.binance.com'
 
-# Trading parameters
-DEFAULT_SYMBOL = os.getenv('SYMBOL', 'BTC/USDT')
+# Trading parameters - Now using a list of symbols
+DEFAULT_SYMBOLS = os.getenv('SYMBOLS', 'BTC/USDT,ETH/USDT,SOL/USDT,XRP/USDT,BNB/USDT').split(',')
 DEFAULT_TIMEFRAME = os.getenv('TIMEFRAME', '30s')  # Changed from 1m to 30s for higher frequency
 DEFAULT_TRADE_AMOUNT = float(os.getenv('TRADE_AMOUNT', 0.0001))
 
@@ -43,7 +43,7 @@ def create_sample_env_file():
 API_KEY=your_api_key_here
 
 # Trading Configuration
-SYMBOL=BTC/USDT
+SYMBOLS=BTC/USDT,ETH/USDT,SOL/USDT,XRP/USDT,BNB/USDT
 TIMEFRAME=30s
 TRADE_AMOUNT=0.0001
 

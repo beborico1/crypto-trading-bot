@@ -23,9 +23,9 @@ from utils.terminal_colors import (
 
 class CryptoTradingBot:
     def __init__(self, symbol, timeframe, api_key, base_url, amount, short_window, long_window, 
-                 simulation_mode=False, use_enhanced_strategy=True, use_scalping_strategy=False,
-                 take_profit_percentage=1.5, stop_loss_percentage=1.0, max_position_size=5,
-                 high_frequency_mode=True):
+                simulation_mode=False, use_enhanced_strategy=True, use_scalping_strategy=False,
+                take_profit_percentage=1.5, stop_loss_percentage=1.0, max_position_size=5,
+                high_frequency_mode=True, data_dir=None):
         """
         Initialize the trading bot with exchange details and trading parameters
         
@@ -44,9 +44,10 @@ class CryptoTradingBot:
         stop_loss_percentage (float): Percentage loss to trigger stop loss
         max_position_size (float): Maximum position size as a multiple of the base amount
         high_frequency_mode (bool): Whether to use high frequency trading mode
+        data_dir (str): Directory to store data for this symbol
         """
         # Exchange configuration
-        self.symbol = symbol
+        self.symbol = symbol.strip()  # Ensure no whitespace
         self.timeframe = timeframe
         self.api_key = api_key
         self.base_url = base_url
@@ -55,6 +56,10 @@ class CryptoTradingBot:
         self.exchange = ccxt.binance({
             'enableRateLimit': True
         })
+        
+        # Set the data directory for this symbol
+        self.data_dir = data_dir if data_dir else os.path.join(config.DATA_DIR, symbol.replace('/', '_'))
+        os.makedirs(self.data_dir, exist_ok=True)
         
         # Trading parameters
         self.base_position_size = amount
@@ -107,10 +112,10 @@ class CryptoTradingBot:
         self.sim_tracker = None
         if self.in_simulation_mode:
             # Try to load existing simulation data
-            loaded_tracker, success = load_simulation_data()
+            loaded_tracker, success = load_simulation_data(self.data_dir)
             if success:
                 self.sim_tracker = loaded_tracker
-                print_success("Loaded existing simulation data")
+                print_success(f"Loaded existing simulation data for {self.symbol}")
                 
                 # Check if we have any existing position
                 current_balance = self.sim_tracker.get_current_balance(0)  # Price doesn't matter for the check
@@ -128,33 +133,57 @@ class CryptoTradingBot:
                 self.sim_tracker = SimulationTracker(
                     initial_balance=100.0,  # Start with 100 USDT
                     base_currency=base_currency,
-                    quote_currency=quote_currency
+                    quote_currency=quote_currency,
+                    data_dir=self.data_dir
                 )
-                print_info(f"Started new simulation with 100 {quote_currency}")
+                print_info(f"Started new simulation with 100 {quote_currency} for {self.symbol}")
         
         print_header(f"Bot initialized for {self.symbol} on Binance using {timeframe} timeframe")
         
         if self.high_frequency_mode:
-            print_header("HIGH FREQUENCY TRADING MODE ENABLED")
+            print_header(f"{self.symbol}: HIGH FREQUENCY TRADING MODE ENABLED")
             print_info(f"Using ultra-short EMA combinations with fast RSI and Stochastics")
             print_info(f"Take Profit: {self.hf_take_profit_percentage}%, Stop Loss: {self.hf_stop_loss_percentage}%")
         elif self.use_enhanced_strategy:
-            print_info("Using enhanced trading strategy for more frequent trades")
+            print_info(f"{self.symbol}: Using enhanced trading strategy for more frequent trades")
         elif self.use_scalping_strategy:
-            print_info("Using scalping strategy for very frequent trades!")
-    
-    def fetch_ohlcv_data(self, limit=30):
+            print_info(f"{self.symbol}: Using scalping strategy for very frequent trades!")
+        
+    @staticmethod
+    def fetch_ohlcv_data(exchange, symbol, timeframe, limit=30):
         """
-        Fetch candlestick data from the exchange, optimized for high frequency
+        Fetch candlestick data from the exchange with optimization for high frequency
         
         Parameters:
-        limit (int): Number of candles to fetch
+        exchange (ccxt.Exchange): Exchange instance
+        symbol (str): The trading pair (e.g., 'BTC/USDT')
+        timeframe (str): The candle timeframe (e.g., '30s', '1m')
+        limit (int): Number of candles to fetch (reduced for faster processing)
         
         Returns:
         pandas.DataFrame: OHLCV data
         """
-        return fetch_ohlcv_data(self.exchange, self.symbol, self.timeframe, limit)
-    
+        try:
+            # Ensure symbol is properly formatted (trim whitespace)
+            clean_symbol = symbol.strip()
+            
+            # Convert timeframes not supported by Binance to supported ones
+            binance_timeframe = timeframe
+            if timeframe in ['30s', '10s', '5s']:
+                print_info(f"Converting {timeframe} to '1m' for Binance API compatibility")
+                binance_timeframe = '1m'
+            
+            # Fetch OHLCV data using CCXT (no authentication needed)
+            ohlcv = exchange.fetch_ohlcv(clean_symbol, binance_timeframe, limit=limit)
+            
+            # Convert to DataFrame
+            df = prepare_ohlcv_dataframe(ohlcv)
+            
+            return df
+        except Exception as e:
+            print_error(f"Error fetching data: {e}")
+            return None
+        
     def analyze_market(self, limit=30):
         """
         Analyze market data and calculate signals
@@ -216,54 +245,57 @@ class CryptoTradingBot:
         interval (int): Seconds between each check
         """
         # Print the operating mode at startup
+        symbol_prefix = f"[{self.symbol}] "
+        
         if self.in_simulation_mode:
             if self.simulation_mode:
-                print_warning("SIMULATION MODE: Enabled by configuration. No real trades will be executed.")
+                print_warning(f"{symbol_prefix}SIMULATION MODE: Enabled by configuration. No real trades will be executed.")
             else:
                 missing = []
                 if not self.api_key:
                     missing.append("API key")
                 if not os.path.isfile('binance_private_key.pem'):
                     missing.append("RSA private key")
-                print_warning(f"SIMULATION MODE: {', '.join(missing)} not found. No real trades will be executed.")
+                print_warning(f"{symbol_prefix}SIMULATION MODE: {', '.join(missing)} not found. No real trades will be executed.")
         else:
-            print(f"{Colors.BG_BLUE}{Colors.WHITE} LIVE TRADING MODE {Colors.RESET} Bot will execute real trades on Binance!")
+            print(f"{Colors.BG_BLUE}{Colors.WHITE} LIVE TRADING MODE {Colors.RESET} {symbol_prefix}Bot will execute real trades on Binance!")
         
         # Print strategy information
         if self.high_frequency_mode:
-            print_info(f"Using HIGH FREQUENCY strategy with {self.timeframe} candles")
-            print_info(f"EMA windows: 1/3/5, Fast RSI period: 5, Ultra-fast position management")
+            print_info(f"{symbol_prefix}Using HIGH FREQUENCY strategy with {self.timeframe} candles")
+            print_info(f"{symbol_prefix}EMA windows: 1/3/5, Fast RSI period: 5, Ultra-fast position management")
         elif self.use_scalping_strategy:
-            print_info(f"Using SCALPING strategy with {self.timeframe} candles")
+            print_info(f"{symbol_prefix}Using SCALPING strategy with {self.timeframe} candles")
         elif self.use_enhanced_strategy:
-            print_info(f"Using ENHANCED strategy with {self.timeframe} candles")
+            print_info(f"{symbol_prefix}Using ENHANCED strategy with {self.timeframe} candles")
         else:
-            print_info(f"Using STANDARD MA CROSSOVER strategy with {self.timeframe} candles")
+            print_info(f"{symbol_prefix}Using STANDARD MA CROSSOVER strategy with {self.timeframe} candles")
         
         # Print position sizing information
-        print_info(f"Base position size: {self.base_position_size} {self.symbol.split('/')[0]}")
-        print_info(f"Maximum position size: {self.base_position_size * self.max_position_size} {self.symbol.split('/')[0]} "
+        print_info(f"{symbol_prefix}Base position size: {self.base_position_size} {self.symbol.split('/')[0]}")
+        print_info(f"{symbol_prefix}Maximum position size: {self.base_position_size * self.max_position_size} {self.symbol.split('/')[0]} "
                   f"({self.max_position_size}x base size)")
         
-        print_info(f"Moving average windows: {self.short_window}/{self.long_window}")
+        print_info(f"{symbol_prefix}Moving average windows: {self.short_window}/{self.long_window}")
         
         if self.high_frequency_mode:
-            print_info(f"High Frequency Take Profit: {self.hf_take_profit_percentage}%, Stop Loss: {self.hf_stop_loss_percentage}%")
-            print_info(f"Maximum trade frequency: {self.minute_trade_limit} trades per minute")
+            print_info(f"{symbol_prefix}High Frequency Take Profit: {self.hf_take_profit_percentage}%, Stop Loss: {self.hf_stop_loss_percentage}%")
+            print_info(f"{symbol_prefix}Maximum trade frequency: {self.minute_trade_limit} trades per minute")
         else:
-            print_info(f"Take profit: {self.take_profit_percentage}%, Stop loss: {self.stop_loss_percentage}%")
+            print_info(f"{symbol_prefix}Take profit: {self.take_profit_percentage}%, Stop loss: {self.stop_loss_percentage}%")
             
-        print_info(f"Bot started. Checking for signals every {interval} seconds.")
+        print_info(f"{symbol_prefix}Bot started. Checking for signals every {interval} seconds.")
         
         try:
             # Delegate bot execution to the bot_execution module
             handle_market_update(
                 self, 
-                interval=interval
+                interval=interval,
+                symbol_prefix=symbol_prefix
             )
             
         except KeyboardInterrupt:
-            print_warning("Bot stopped by user.")
+            print_warning(f"{symbol_prefix}Bot stopped by user.")
             
             # Generate final report and plot in simulation mode
             if self.in_simulation_mode and self.sim_tracker:
@@ -273,15 +305,15 @@ class CryptoTradingBot:
                     report = self.sim_tracker.generate_performance_report(current_price)
                     chart_path = self.sim_tracker.plot_performance()
                     
-                    print_header("===== FINAL SIMULATION REPORT =====")
-                    print_info(f"Initial balance: ${report['initial_balance']:.2f} USDT")
-                    print_info(f"Final balance: ${report['current_balance']:.2f} USDT")
+                    print_header(f"{symbol_prefix}===== FINAL SIMULATION REPORT =====")
+                    print_info(f"{symbol_prefix}Initial balance: ${report['initial_balance']:.2f} USDT")
+                    print_info(f"{symbol_prefix}Final balance: ${report['current_balance']:.2f} USDT")
                     
                     return_formatted = format_profit(report['absolute_return'])
                     percent_return_formatted = format_percentage(report['percent_return'])
                     
-                    print_info(f"Return: {return_formatted} USDT ({percent_return_formatted})")
-                    print_info(f"Total trades: {report['total_trades']} (Buy: {report['buy_trades']}, Sell: {report['sell_trades']})")
+                    print_info(f"{symbol_prefix}Return: {return_formatted} USDT ({percent_return_formatted})")
+                    print_info(f"{symbol_prefix}Total trades: {report['total_trades']} (Buy: {report['buy_trades']}, Sell: {report['sell_trades']})")
                     
                     # Calculate trade frequency
                     if 'start_time' in report and 'current_time' in report:
@@ -292,12 +324,12 @@ class CryptoTradingBot:
                         
                         if duration_minutes > 0 and report['total_trades'] > 0:
                             trades_per_minute = report['total_trades'] / duration_minutes
-                            print_info(f"Trading frequency: {trades_per_minute:.2f} trades per minute")
-                            print_info(f"Trading duration: {duration_minutes:.2f} minutes")
+                            print_info(f"{symbol_prefix}Trading frequency: {trades_per_minute:.2f} trades per minute")
+                            print_info(f"{symbol_prefix}Trading duration: {duration_minutes:.2f} minutes")
                     
-                    print_info(f"Performance chart saved to: {chart_path}")
-                    print_header("=====================================")
+                    print_info(f"{symbol_prefix}Performance chart saved to: {chart_path}")
+                    print_header(f"{symbol_prefix}=====================================")
                     
         except Exception as e:
-            print_error(f"Error running bot: {e}")
+            print_error(f"{symbol_prefix}Error running bot: {e}")
             raise

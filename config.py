@@ -10,7 +10,7 @@ BASE_URL = 'https://api.binance.com'
 
 # Trading parameters
 DEFAULT_SYMBOL = os.getenv('SYMBOL', 'BTC/USDT')
-DEFAULT_TIMEFRAME = os.getenv('TIMEFRAME', '1m')  # Changed from 5m to 1m
+DEFAULT_TIMEFRAME = os.getenv('TIMEFRAME', '30s')  # Changed from 1m to 30s for higher frequency
 DEFAULT_TRADE_AMOUNT = float(os.getenv('TRADE_AMOUNT', 0.0001))
 
 # Mode configuration
@@ -19,15 +19,16 @@ SIMULATION_MODE = os.getenv('SIMULATION_MODE', 'false').lower() == 'true'
 # Simulation parameters
 SIMULATION_INITIAL_BALANCE = float(os.getenv('SIMULATION_INITIAL_BALANCE', 100.0))
 
-# Strategy parameters
-SHORT_WINDOW = int(os.getenv('SHORT_WINDOW', 3))  # Changed from 5 to 3
-LONG_WINDOW = int(os.getenv('LONG_WINDOW', 10))   # Changed from 20 to 10
+# Strategy parameters - Ultra short windows for high frequency trading
+SHORT_WINDOW = int(os.getenv('SHORT_WINDOW', 2))  # Changed from 3 to 2
+LONG_WINDOW = int(os.getenv('LONG_WINDOW', 5))   # Changed from 10 to 5
 
 # Bot settings
-CHECK_INTERVAL = int(os.getenv('CHECK_INTERVAL', 15))  # Changed from 30 to 15 seconds
+CHECK_INTERVAL = int(os.getenv('CHECK_INTERVAL', 2))  # Changed from 5 to 2 seconds for more frequent checks
+UPDATE_DISPLAY_INTERVAL = 1  # Display update every 1 check
 
 # Dashboard settings
-GENERATE_DASHBOARD_INTERVAL = int(os.getenv('GENERATE_DASHBOARD_INTERVAL', 10))  # Generate dashboard every N checks
+GENERATE_DASHBOARD_INTERVAL = int(os.getenv('GENERATE_DASHBOARD_INTERVAL', 5))  # Generate dashboard every 5 checks
 
 # Directory settings
 DATA_DIR = os.getenv('DATA_DIR', 'simulation_data')
@@ -43,20 +44,20 @@ API_KEY=your_api_key_here
 
 # Trading Configuration
 SYMBOL=BTC/USDT
-TIMEFRAME=1m
-TRADE_AMOUNT=0.001
+TIMEFRAME=30s
+TRADE_AMOUNT=0.0001
 
 # Mode Configuration
 SIMULATION_MODE=true
 SIMULATION_INITIAL_BALANCE=100.0
 
 # Strategy Parameters
-SHORT_WINDOW=3
-LONG_WINDOW=10
+SHORT_WINDOW=2
+LONG_WINDOW=5
 
 # Bot Settings
-CHECK_INTERVAL=15
-GENERATE_DASHBOARD_INTERVAL=10
+CHECK_INTERVAL=2
+GENERATE_DASHBOARD_INTERVAL=5
 
 # Directory Settings
 DATA_DIR=simulation_data

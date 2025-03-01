@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Crypto Trading Bot - Entry Point
+High Frequency Crypto Trading Bot - Entry Point
 """
 
 import os
@@ -15,18 +15,18 @@ from utils.terminal_colors import (
 )
 
 def main():
-    """Main entry point for the application"""
+    """Main entry point for the high frequency trading bot application"""
     
-    print_header("Cryptocurrency Trading Bot")
+    print_header("High Frequency Cryptocurrency Trading Bot")
     
     # Parse command line arguments
-    parser = argparse.ArgumentParser(description='Cryptocurrency Trading Bot')
+    parser = argparse.ArgumentParser(description='High Frequency Cryptocurrency Trading Bot')
     parser.add_argument('--symbol', type=str, default=config.DEFAULT_SYMBOL,
                         help=f'Trading pair symbol (default: {config.DEFAULT_SYMBOL})')
     parser.add_argument('--timeframe', type=str, default=config.DEFAULT_TIMEFRAME,
-                        help=f'Candle timeframe (default: {config.DEFAULT_TIMEFRAME})')
+                        help=f'Candle timeframe (default: {config.DEFAULT_TIMEFRAME}) - use 30s for high frequency')
     parser.add_argument('--amount', type=float, default=config.DEFAULT_TRADE_AMOUNT,
-                        help=f'Amount to trade (default: {config.DEFAULT_TRADE_AMOUNT})')
+                        help=f'Base amount to trade (default: {config.DEFAULT_TRADE_AMOUNT})')
     parser.add_argument('--interval', type=int, default=config.CHECK_INTERVAL,
                         help=f'Check interval in seconds (default: {config.CHECK_INTERVAL})')
     parser.add_argument('--short-window', type=int, default=config.SHORT_WINDOW,
@@ -38,13 +38,21 @@ def main():
     parser.add_argument('--dashboard-only', action='store_true',
                         help='Generate dashboard from existing simulation data and exit')
     parser.add_argument('--standard-strategy', action='store_true',
-                        help='Use standard MA crossover strategy instead of enhanced strategy')
-    parser.add_argument('--scalping-mode', action='store_true',
-                        help='Use scalping strategy for more frequent trading')
-    parser.add_argument('--take-profit', type=float, default=1.5,
-                        help='Take profit percentage (default: 1.5%)')
-    parser.add_argument('--stop-loss', type=float, default=1.0,
-                        help='Stop loss percentage (default: 1.0%)')
+                        help='Use standard MA crossover strategy instead of high frequency')
+    parser.add_argument('--enhanced-strategy', action='store_true',
+                        help='Use enhanced strategy instead of high frequency')
+    parser.add_argument('--scalping-strategy', action='store_true',
+                        help='Use scalping strategy instead of high frequency')
+    parser.add_argument('--high-frequency', action='store_true',
+                        help='Use high frequency trading strategy (default)')
+    parser.add_argument('--take-profit', type=float, default=0.5,
+                        help='Take profit percentage (default: 0.5% for high frequency)')
+    parser.add_argument('--stop-loss', type=float, default=0.3,
+                        help='Stop loss percentage (default: 0.3% for high frequency)')
+    parser.add_argument('--max-position-size', type=float, default=15.0,
+                        help='Maximum position size as multiple of base amount (default: 15.0)')
+    parser.add_argument('--trade-limit', type=int, default=20,
+                        help='Maximum trades per minute (default: 20)')
     
     args = parser.parse_args()
     
@@ -57,30 +65,46 @@ def main():
     # Determine simulation mode
     simulation_mode = args.simulation or config.SIMULATION_MODE
     
-    # Determine strategy mode (priority: scalping > standard > enhanced)
-    use_enhanced_strategy = not args.standard_strategy and not args.scalping_mode
-    use_scalping_strategy = args.scalping_mode
+    # Determine strategy mode (priority: standard > enhanced > scalping > high-frequency)
+    use_standard_strategy = args.standard_strategy
+    use_enhanced_strategy = args.enhanced_strategy and not use_standard_strategy
+    use_scalping_strategy = args.scalping_strategy and not use_standard_strategy and not use_enhanced_strategy
+    use_high_frequency = (args.high_frequency or (not use_standard_strategy and not use_enhanced_strategy and not use_scalping_strategy))
     
     # Display configuration
     print_info("Bot Configuration:")
     print_info(f"  Symbol: {Colors.CYAN}{args.symbol}{Colors.RESET}")
     print_info(f"  Timeframe: {Colors.CYAN}{args.timeframe}{Colors.RESET}")
-    print_info(f"  Trade Amount: {Colors.CYAN}{args.amount}{Colors.RESET}")
+    print_info(f"  Base Trade Amount: {Colors.CYAN}{args.amount}{Colors.RESET}")
+    print_info(f"  Max Position Size: {Colors.CYAN}{args.max_position_size}x base amount{Colors.RESET}")
     print_info(f"  Check Interval: {Colors.CYAN}{args.interval} seconds{Colors.RESET}")
     print_info(f"  MA Windows: {Colors.CYAN}{args.short_window}/{args.long_window}{Colors.RESET}")
     print_info(f"  Simulation Mode: {Colors.YELLOW if simulation_mode else Colors.GREEN}{simulation_mode}{Colors.RESET}")
     
     # Show strategy info
-    if use_scalping_strategy:
+    if use_high_frequency:
+        strategy_name = "High Frequency"
+        strategy_color = Colors.RED
+    elif use_scalping_strategy:
         strategy_name = "Scalping"
+        strategy_color = Colors.MAGENTA
     elif use_enhanced_strategy:
         strategy_name = "Enhanced"
+        strategy_color = Colors.BLUE
     else:
         strategy_name = "Standard MA Crossover"
+        strategy_color = Colors.GREEN
     
-    print_info(f"  Strategy: {Colors.MAGENTA}{strategy_name}{Colors.RESET}")
-    print_info(f"  Take Profit: {Colors.GREEN}{args.take_profit}%{Colors.RESET}")
-    print_info(f"  Stop Loss: {Colors.RED}{args.stop_loss}%{Colors.RESET}")
+    print_info(f"  Strategy: {strategy_color}{strategy_name}{Colors.RESET}")
+    
+    # Show take profit/stop loss settings based on strategy
+    if use_high_frequency:
+        print_info(f"  Take Profit: {Colors.GREEN}{args.take_profit}%{Colors.RESET} (High Frequency)")
+        print_info(f"  Stop Loss: {Colors.RED}{args.stop_loss}%{Colors.RESET} (High Frequency)")
+        print_info(f"  Max Trades Per Minute: {Colors.CYAN}{args.trade_limit}{Colors.RESET}")
+    else:
+        print_info(f"  Take Profit: {Colors.GREEN}{args.take_profit}%{Colors.RESET}")
+        print_info(f"  Stop Loss: {Colors.RED}{args.stop_loss}%{Colors.RESET}")
     
     # Initialize the bot with configuration
     try:
@@ -96,8 +120,14 @@ def main():
             use_enhanced_strategy=use_enhanced_strategy,
             use_scalping_strategy=use_scalping_strategy,
             take_profit_percentage=args.take_profit,
-            stop_loss_percentage=args.stop_loss
+            stop_loss_percentage=args.stop_loss,
+            max_position_size=args.max_position_size,
+            high_frequency_mode=use_high_frequency
         )
+        
+        # If high frequency mode, set the trade limit
+        if use_high_frequency:
+            bot.minute_trade_limit = args.trade_limit
         
         # Check balance before starting (if credentials are available and not in simulation mode)
         if config.API_KEY and not simulation_mode:

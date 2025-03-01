@@ -8,9 +8,23 @@ Please help me split _ into more files max 300 lines each
 
 ## Must
 
+It should follow many differnet cripto currencies not only btc
+
+It is still not frequent enough
+
+Generating high frequency dashboard from 203 data points...
+/Users/beborico/dev/crypto-trading-bot/trading/dashboard.py:166: FutureWarning: 'T' is deprecated and will be removed in a future version, please use 'min' instead.
+  trade_freq = trans_df.resample('1T').size().reset_index()
+/Users/beborico/dev/crypto-trading-bot/trading/dashboard.py:343: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout(rect=[0, 0.03, 1, 0.97])
+
 modularize
 
-higher frecuency trading
+Higher frecuency trading
+
+Web UI
+
+do a historical run mode to see how our model would have performed oer time
 
 ligar un llm
 
@@ -64,27 +78,12 @@ ligar un llm
 - Add interactive charts with trade annotations
 - Implement mobile-friendly interface for monitoring on the go
 
-### Notifications
-
-- Add email/SMS alerts for trade executions and significant price movements
-- Implement Telegram/Discord bot integration for notifications
-- Create customizable alert thresholds
-
-## 5. Technical Improvements
-
-### Code Refactoring
-
-- Implement asyncio for improved performance, especially for API calls
-- Add better error handling and automated recovery
-- Improve logging system with rotating logs and log levels
-
 ## 6. Performance Analytics
 
 ### Advanced Reporting
 
 - Add detailed trade statistics (Sharpe ratio, Sortino ratio, drawdown analysis)
 - Implement trade journaling with annotations
-- Create periodic performance reports (daily/weekly/monthly)
 
 ### Market Analysis
 
@@ -93,6 +92,10 @@ ligar un llm
 - Add volume profile analysis for better entry/exit points
 
 ## Done
+
+It should do way higher frecuency trading and constantly update the user on the balance and all
+
+How I feel like it should behave is that instead of like "Already in position - skipping buy" it should do like small enough trades that if he feels like the buying opportunity has increased since he bought he can double down on the bet maybe even fold a couple of times
 
 make the trading more frecuent
 

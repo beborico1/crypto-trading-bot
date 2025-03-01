@@ -99,7 +99,7 @@ python main.py
 Customize bot behavior with command line arguments:
 
 ```bash
-python main.py --symbol ETH/USDT --timeframe 5m --amount 0.01 --short-window 5 --long-window 15 --interval 30 --simulation
+python main.py --symbol ETH/USDT --timeframe 5m --amount 0.01 --short-window 5 --long-window 15 --interval 5 --simulation
 ```
 
 ### Available Arguments

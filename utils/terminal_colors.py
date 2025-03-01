@@ -64,6 +64,10 @@ def print_simulation(message):
     """Print simulation information"""
     print(f"{Colors.YELLOW}SIMULATION: {message}{Colors.RESET}")
 
+def print_position_update(message):
+    """Print a position update message in purple"""
+    print(f"{Colors.MAGENTA}POSITION: {message}{Colors.RESET}")
+
 def format_profit(value, include_sign=True):
     """Format profit value with color (green for positive, red for negative)"""
     if value > 0:

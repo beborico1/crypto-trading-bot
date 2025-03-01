@@ -161,6 +161,11 @@ body {
   border-color: var(--purple-primary);
 }
 
+.btn-outline-light {
+  color: var(--text-dark);
+  border-color: var(--dark-border);
+}
+
 .btn-outline-primary:hover {
   background-color: var(--purple-primary);
   color: white;
@@ -283,6 +288,10 @@ body {
   font-size: 14px;
   font-weight: 500;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-dark);
+}
+
+.text-dark {
   color: var(--text-dark);
 }
 

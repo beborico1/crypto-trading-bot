@@ -37,185 +37,58 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Load and render performance chart for a specific trading pair
-function loadPerformanceChart(symbol) {
-    // Find the chart container for this symbol
-    const chartContainer = document.querySelector(`.performance-chart-container[data-symbol="${symbol}"]`);
-    if (!chartContainer) return;
-
-    const loadingSpinner = chartContainer.querySelector('.chart-loading');
-    const errorMessage = chartContainer.querySelector('.chart-error-message');
+function loadPerformanceChart(container) {
+    const symbol = container.data('symbol');
     const chartId = `${symbol.replace('/', '-')}-chart`;
+    const loadingSpinner = container.find('.chart-loading');
+    const errorMessage = container.find('.chart-error-message');
     const chartElement = document.getElementById(chartId);
-    
+
     if (!chartElement) return;
 
-    // Show loading spinner, hide any previous error
-    if (loadingSpinner) loadingSpinner.style.display = 'block';
-    if (errorMessage) errorMessage.style.display = 'none';
+    loadingSpinner.show();
+    errorMessage.hide();
 
-    // Clean symbol by splitting it into base/quote components
-    const symbolParts = symbol.split('/');
-    if (symbolParts.length !== 2) {
-        if (errorMessage) {
-            const errorText = errorMessage.querySelector('.error-text');
-            if (errorText) errorText.textContent = 'Invalid symbol format';
-            errorMessage.style.display = 'block';
-        }
-        if (loadingSpinner) loadingSpinner.style.display = 'none';
-        return;
-    }
+    // Extract base and quote from symbol
+    const [base, quote] = symbol.split('/');
 
-    const base = symbolParts[0];
-    const quote = symbolParts[1];
-
-    // Call API to get chart data using fetch
-    fetch(`/performance_chart/${base}/${quote}`)
-        .then(response => response.json())
-        .then(data => {
-            if (loadingSpinner) loadingSpinner.style.display = 'none';
-            
-            if (data.success && data.chart) {
+    // Call the API for chart data
+    $.ajax({
+        url: `/performance_chart/${base}/${quote}`,
+        type: 'GET',
+        success: function (response) {
+            loadingSpinner.hide();
+            if (response.success && response.chart) {
                 try {
-                    const chartData = JSON.parse(data.chart);
-                    
-                    // Add dark mode styling
-                    if (!chartData.layout) chartData.layout = {};
-                    
-                    // Apply dark theme modifications with darker text
-                    Object.assign(chartData.layout, {
-                        paper_bgcolor: 'rgba(0,0,0,0)',
-                        plot_bgcolor: 'rgba(0,0,0,0)',
-                        font: { 
-                            family: 'Inter, system-ui, sans-serif',
-                            color: '#000000'  // Changed from '#b0b0c0' to black
-                        },
-                        margin: {l: 50, r: 20, t: 40, b: 40},
-                        xaxis: {
-                            gridcolor: '#434359',
-                            linecolor: '#434359',
-                            zerolinecolor: '#6a3de8',
-                            tickfont: {
-                                color: '#000000'  // Explicit dark color for x-axis tick labels
-                            }
-                        },
-                        yaxis: {
-                            gridcolor: '#434359',
-                            linecolor: '#434359',
-                            zerolinecolor: '#6a3de8',
-                            tickprefix: '$',
-                            zeroline: true,
-                            tickfont: {
-                                color: '#000000'  // Explicit dark color for y-axis tick labels
-                            }
-                        },
-                        legend: {
-                            bgcolor: 'rgba(0,0,0,0)',
-                            font: {
-                                color: '#000000'  // Dark color for legend text
-                            }
-                        },
-                        height: 350,
-                        autosize: true
+                    const chartData = JSON.parse(response.chart);
+                    Plotly.newPlot(chartId, chartData.data, chartData.layout, {
+                        responsive: true,
+                        displayModeBar: false
                     });
                     
-                    // Set title color if it exists
-                    if (chartData.layout.title) {
-                        if (typeof chartData.layout.title === 'string') {
-                            chartData.layout.title = {
-                                text: chartData.layout.title,
-                                font: {
-                                    color: '#e0e0e0'
-                                }
-                            };
-                        } else {
-                            chartData.layout.title.font = {
-                                color: '#e0e0e0'
-                            };
-                        }
-                    }
-                    
-                    // Update data colors if needed
-                    if (chartData.data && chartData.data.length > 0) {
-                        // Main line should be purple
-                        if (chartData.data[0]) {
-                            chartData.data[0].line = {
-                                color: '#9266ff',
-                                width: 3
-                            };
-                            
-                            // Add area fill for nicer appearance
-                            chartData.data[0].fill = 'tozeroy';
-                            chartData.data[0].fillcolor = 'rgba(146, 102, 255, 0.1)';
-                            
-                            // Set proper hover template
-                            chartData.data[0].hovertemplate = '%{y:.2f} USDT<br>%{x}<extra></extra>';
-                        }
-                        
-                        // Buy markers should be green
-                        if (chartData.data[1]) {
-                            chartData.data[1].marker = chartData.data[1].marker || {};
-                            chartData.data[1].marker.color = '#38d39f';
-                        }
-                        
-                        // Sell markers should be red
-                        if (chartData.data[2]) {
-                            chartData.data[2].marker = chartData.data[2].marker || {};
-                            chartData.data[2].marker.color = '#e53935';
-                        }
-                    }
-                    
-                    // Ensure y-axis shows starting point properly
-                    if (chartData.data && chartData.data[0] && chartData.data[0].y && chartData.data[0].y.length > 0) {
-                        const yData = chartData.data[0].y;
-                        const minValue = Math.min(...yData);
-                        const maxValue = Math.max(...yData);
-                        const startValue = yData[0];
-                        
-                        // Set a baseline around the starting value for better visualization
-                        const range = maxValue - minValue;
-                        chartData.layout.yaxis.range = [
-                            startValue - (range * 0.1), // 10% padding below
-                            startValue + (range * 1.1)  // 10% padding above max
-                        ];
-                    }
-                    
-                    // Create the plot with responsive config
-                    Plotly.newPlot(chartElement, chartData.data, chartData.layout, {
-                        displayModeBar: false,
-                        responsive: true
-                    });
-                    
-                    // Handle window resize to ensure chart stays responsive
+                    // Make chart responsive
                     window.addEventListener('resize', function() {
-                        Plotly.relayout(chartId, {
-                            autosize: true
-                        });
+                        Plotly.Plots.resize(chartElement);
                     });
                 } catch (error) {
                     console.error('Error parsing chart JSON:', error);
-                    if (errorMessage) {
-                        const errorText = errorMessage.querySelector('.error-text');
-                        if (errorText) errorText.textContent = 'Error rendering chart: ' + error.message;
-                        errorMessage.style.display = 'block';
-                    }
+                    errorMessage.find('.error-text').text('Error rendering chart: ' + error.message);
+                    errorMessage.show();
                 }
             } else {
-                if (errorMessage) {
-                    const errorText = errorMessage.querySelector('.error-text');
-                    if (errorText) errorText.textContent = data.message || 'Failed to load chart data';
-                    errorMessage.style.display = 'block';
-                }
+                errorMessage.find('.error-text').text(response.message || 'Failed to load chart data');
+                errorMessage.show();
             }
-        })
-        .catch(error => {
-            if (loadingSpinner) loadingSpinner.style.display = 'none';
-            if (errorMessage) {
-                const errorText = errorMessage.querySelector('.error-text');
-                if (errorText) errorText.textContent = 'Error loading chart: ' + (error.message || 'Server error');
-                errorMessage.style.display = 'block';
-            }
-        });
+        },
+        error: function (xhr, status, error) {
+            loadingSpinner.hide();
+            console.error('Chart loading error:', error, xhr.responseText);
+            errorMessage.find('.error-text').text('Error loading chart: ' + (error || 'Server error'));
+            errorMessage.show();
+        }
+    });
 }
+
 
 // Apply color styling to performance values
 function formatPerformanceValues() {

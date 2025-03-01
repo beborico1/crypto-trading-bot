@@ -1,0 +1,46 @@
+{
+  "transactions": [],
+  "balance_history": [
+    {
+      "timestamp": "2025-02-28T23:20:24.527315",
+      "quote_balance": 100.0,
+      "base_balance": 0.0,
+      "total_value_in_quote": 100.0
+    },
+    {
+      "timestamp": "2025-02-28T23:20:26.724239",
+      "quote_balance": 100.0,
+      "base_balance": 0.0,
+      "price": 145.76,
+      "total_value_in_quote": 100.0
+    },
+    {
+      "timestamp": "2025-02-28T23:20:28.933056",
+      "quote_balance": 100.0,
+      "base_balance": 0.0,
+      "price": 145.76,
+      "total_value_in_quote": 100.0
+    },
+    {
+      "timestamp": "2025-02-28T23:20:31.139945",
+      "quote_balance": 100.0,
+      "base_balance": 0.0,
+      "price": 145.76,
+      "total_value_in_quote": 100.0
+    },
+    {
+      "timestamp": "2025-02-28T23:20:33.339261",
+      "quote_balance": 100.0,
+      "base_balance": 0.0,
+      "price": 145.76,
+      "total_value_in_quote": 100.0
+    },
+    {
+      "timestamp": "2025-02-28T23:20:35.539968",
+      "quote_balance": 100.0,
+      "base_balance": 0.0,
+      "price": 145.79,
+      "total_value_in_quote": 100.0
+    }
+  ]
+}

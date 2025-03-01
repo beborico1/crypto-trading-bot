@@ -320,10 +320,9 @@ def generate_dashboards():
         print_error(f"Error generating dashboards: {e}")
         return jsonify({'success': False, 'message': f'Error generating dashboards: {str(e)}'})
 
-# UPDATED: Performance chart route with improved base/quote parameter handling
 @app.route('/performance_chart/<base>/<quote>')
 def performance_chart(base, quote):
-    """Generate a performance chart for a specific symbol"""
+    """Generate a performance chart for a specific symbol with extensive debugging"""
     try:
         # Combine base and quote into a symbol
         symbol = f"{base}/{quote}"
@@ -344,86 +343,162 @@ def performance_chart(base, quote):
         
         print_info(f"Found {len(balance_history)} balance history entries for '{clean_symbol}'")
         
-        # Convert to DataFrame
-        df = pd.DataFrame(balance_history)
-        df['timestamp'] = pd.to_datetime(df['timestamp'])
+        # Detailed diagnostic logging
+        print_info(f"First few balance entries:")
+        for i, entry in enumerate(balance_history[:5]):
+            print_info(f"Entry {i}: timestamp={entry.get('timestamp')}, value={entry.get('total_value_in_quote')}")
         
-        # Create figure
+        # Make a copy of the data to avoid modifying the original
+        data_for_chart = []
+        
+        # Ensure each entry has all required fields and proper format
+        for entry in balance_history:
+            if 'timestamp' not in entry or 'total_value_in_quote' not in entry:
+                continue
+                
+            # Create a clean entry with just what we need for the chart
+            clean_entry = {
+                'timestamp': entry['timestamp'],
+                'value': float(entry['total_value_in_quote']),
+                'price': float(entry.get('price', 0))
+            }
+            data_for_chart.append(clean_entry)
+            
+        # Sort by timestamp to ensure proper chronological order
+        data_for_chart.sort(key=lambda x: x['timestamp'])
+        
+        # Extract x and y values directly to ensure proper handling
+        timestamps = [entry['timestamp'] for entry in data_for_chart]
+        values = [entry['value'] for entry in data_for_chart]
+        
+        # Check if we have enough data points
+        if len(timestamps) < 2:
+            print_warning(f"Not enough data points for '{clean_symbol}' - need at least 2, got {len(timestamps)}")
+            
+            # If only one data point, duplicate it with a slightly different timestamp
+            # This ensures at least a flat line will be displayed
+            if len(timestamps) == 1:
+                from datetime import datetime, timedelta
+                # Parse the timestamp, add a minute, and convert back to ISO format
+                try:
+                    dt = datetime.fromisoformat(timestamps[0].replace('Z', '+00:00'))
+                    new_dt = dt + timedelta(minutes=1)
+                    timestamps.append(new_dt.isoformat())
+                    values.append(values[0])
+                    print_info(f"Added duplicate data point to enable chart rendering")
+                except Exception as e:
+                    print_error(f"Error adding duplicate point: {e}")
+        
+        # Create figure directly with the extracted data
         fig = go.Figure()
         
-        # Add total value line
+        # Add total value line trace
         fig.add_trace(go.Scatter(
-            x=df['timestamp'],
-            y=df['total_value_in_quote'],
+            x=timestamps,  # Use timestamps directly
+            y=values,      # Use values directly
             mode='lines',
             name='Total Value',
             line=dict(color='#6a3de8', width=2)
         ))
         
-        # Add buy/sell markers
+        # Add buy/sell markers from transactions if available
         transactions = simulation_data[clean_symbol].get('transactions', [])
         if transactions:
             print_info(f"Found {len(transactions)} transactions for '{clean_symbol}'")
-            trans_df = pd.DataFrame(transactions)
-            trans_df['timestamp'] = pd.to_datetime(trans_df['timestamp'])
+            
+            # Lists to hold buy and sell data points
+            buy_x = []
+            buy_y = []
+            sell_x = []
+            sell_y = []
+            
+            for tx in transactions:
+                if 'timestamp' not in tx or 'action' not in tx:
+                    continue
+                    
+                tx_time = tx['timestamp']
+                
+                # Find matching or subsequent balance entry for this transaction
+                matched_value = None
+                for entry in data_for_chart:
+                    if entry['timestamp'] >= tx_time:
+                        matched_value = entry['value']
+                        break
+                        
+                if matched_value is None and data_for_chart:
+                    # If no matching entry, use the last known value
+                    matched_value = data_for_chart[-1]['value']
+                
+                if matched_value is not None:
+                    if tx['action'] == 'buy':
+                        buy_x.append(tx_time)
+                        buy_y.append(matched_value)
+                    elif tx['action'] == 'sell':
+                        sell_x.append(tx_time)
+                        sell_y.append(matched_value)
             
             # Add buy markers
-            buys = trans_df[trans_df['action'] == 'buy']
-            if not buys.empty:
-                buy_x = []
-                buy_y = []
-                for _, t in buys.iterrows():
-                    closest_balance = df.loc[df['timestamp'] > t['timestamp']].iloc[0] if not df.loc[df['timestamp'] > t['timestamp']].empty else None
-                    if closest_balance is not None:
-                        buy_x.append(t['timestamp'])
-                        buy_y.append(closest_balance['total_value_in_quote'])
-                
-                if buy_x:
-                    fig.add_trace(go.Scatter(
-                        x=buy_x,
-                        y=buy_y,
-                        mode='markers',
-                        name='Buy',
-                        marker=dict(symbol='triangle-up', size=12, color='#38d39f'),
-                        hoverinfo='text',
-                        hovertext=['Buy' for _ in buy_x]
-                    ))
+            if buy_x:
+                fig.add_trace(go.Scatter(
+                    x=buy_x,
+                    y=buy_y,
+                    mode='markers',
+                    name='Buy',
+                    marker=dict(symbol='triangle-up', size=12, color='#38d39f')
+                ))
             
             # Add sell markers
-            sells = trans_df[trans_df['action'] == 'sell']
-            if not sells.empty:
-                sell_x = []
-                sell_y = []
-                for _, t in sells.iterrows():
-                    closest_balance = df.loc[df['timestamp'] > t['timestamp']].iloc[0] if not df.loc[df['timestamp'] > t['timestamp']].empty else None
-                    if closest_balance is not None:
-                        sell_x.append(t['timestamp'])
-                        sell_y.append(closest_balance['total_value_in_quote'])
-                
-                if sell_x:
-                    fig.add_trace(go.Scatter(
-                        x=sell_x,
-                        y=sell_y,
-                        mode='markers',
-                        name='Sell',
-                        marker=dict(symbol='triangle-down', size=12, color='#ff4b5b'),
-                        hoverinfo='text',
-                        hovertext=['Sell' for _ in sell_x]
-                    ))
+            if sell_x:
+                fig.add_trace(go.Scatter(
+                    x=sell_x,
+                    y=sell_y,
+                    mode='markers',
+                    name='Sell',
+                    marker=dict(symbol='triangle-down', size=12, color='#ff4b5b')
+                ))
         
-        # Update layout
+        # Update layout with improved styling
         fig.update_layout(
-            title=f'Performance Chart: {clean_symbol}',
-            xaxis_title='Time',
-            yaxis_title='Value (USDT)',
+            title={
+                'text': f'Performance Chart: {clean_symbol}',
+                'font': {'color': '#000000'}
+            },
+            xaxis={
+                'title': 'Time',
+                'title_font': {'color': '#000000'},
+                'tickfont': {'color': '#000000'},
+                'gridcolor': '#f0f0f0',
+                'linecolor': '#d0d0d0',
+                'type': 'date',  # Explicitly set as date type
+                'tickformat': '%H:%M:%S<br>%Y-%m-%d'  # Format date and time
+            },
+            yaxis={
+                'title': 'Value (USDT)',
+                'title_font': {'color': '#000000'},
+                'tickfont': {'color': '#000000'},
+                'gridcolor': '#f0f0f0',
+                'linecolor': '#d0d0d0',
+                'tickprefix': '$'
+            },
             height=350,
-            template='plotly_dark',
             margin=dict(l=50, r=50, t=50, b=50),
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            legend={
+                'orientation': "h", 
+                'yanchor': "bottom", 
+                'y': 1.02, 
+                'xanchor': "right", 
+                'x': 1,
+                'font': {'color': '#000000'}
+            },
             hovermode='closest',
             paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
+            plot_bgcolor='rgba(0,0,0,0)',
+            font={'color': '#000000'}
         )
+        
+        # Print diagnostic info about the chart being generated
+        print_info(f"Chart data points: {len(timestamps)}")
+        print_info(f"Value range: {min(values) if values else 'N/A'} to {max(values) if values else 'N/A'}")
         
         # Convert to JSON
         chart_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
@@ -481,6 +556,37 @@ def config_page():
     return render_template('config.html', config=config)
 
 
+@app.route('/debug/simulation/<base>/<quote>')
+def debug_simulation_data(base, quote):
+    """Debug endpoint to view raw simulation data"""
+    symbol = f"{base}/{quote}".strip()
+    
+    if symbol not in simulation_data:
+        return jsonify({
+            'success': False,
+            'message': f'No simulation data found for {symbol}',
+            'available_symbols': list(simulation_data.keys())
+        })
+        
+    # Get a summary of the data rather than the full dataset
+    data = simulation_data[symbol]
+    summary = {
+        'balance_history_count': len(data.get('balance_history', [])),
+        'transactions_count': len(data.get('transactions', [])),
+        'balance_history_sample': data.get('balance_history', [])[:5],  # First 5 entries
+        'performance': data.get('performance'),
+        'timestamp_range': {
+            'first': data['balance_history'][0]['timestamp'] if data.get('balance_history') else None,
+            'last': data['balance_history'][-1]['timestamp'] if data.get('balance_history') else None
+        }
+    }
+    
+    return jsonify({
+        'success': True,
+        'symbol': symbol,
+        'data_summary': summary
+    })
+    
 @app.route('/test_connection')
 def test_connection():
     """Test the connection to the exchange"""
@@ -556,22 +662,25 @@ def updated_update_price(self, current_price):
     Parameters:
     current_price (float): Current price of base currency in quote currency
     """
+    # Get the current timestamp
+    timestamp = datetime.now()
+    
     # Calculate total value in quote currency
     total_value = self.quote_balance + (self.base_balance * current_price)
     
-    # Record the balance history
+    # Record the balance history with current timestamp and price
     self.balance_history.append({
-        'timestamp': datetime.now().isoformat(),
+        'timestamp': timestamp.isoformat(),
         'quote_balance': self.quote_balance,
         'base_balance': self.base_balance,
         'total_value_in_quote': total_value,
         'price': current_price
     })
     
-    # Save the simulation data periodically
+    # Save the simulation data periodically (every 10 updates)
     if len(self.balance_history) % 10 == 0:
-        self.save_data()
-
+        self._save_data()
+        
 if __name__ == '__main__':
     # Load initial simulation data
     load_simulation_data()

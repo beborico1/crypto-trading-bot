@@ -8,34 +8,30 @@ Please help me split _ into more files max 300 lines each
 
 ## Must
 
-The graphic is still now showing the right data
-
 Do a new read me
 
-The graphic is broken we can see one it does not fit in the container it has more height than the container but most importantly it showing 1 increases starting in 0 every time it refreshes which make no sense it should show like 100 constantly instead when is has not yet traded anything
+Modularize
 
-For the models when starting a new bot it should also be a select instead of a text input
+The bots sometimes deactivate themselves in the front
 
-Storing and reading the data grom jsons is startin to prove problematic
+Test with real money
 
-Lets Improve way more the design ui/ux of the web interface I was thinking purple tones a very cool ui / ux
+hft_dashboard.png and price_volatility.png are showing the same thing
+
+The:  0 Total Trades +0.00% Overall Return $0 Portfolio Value are not showing the real data
 
 ## should
 
-modularize
-
-do a historical run mode to see how our model would have performed oer time
+Add hability to do do a historical run mode to see how our model would have performed oer time
 
 ## could
 
-/Users/beborico/dev/crypto-trading-bot/trading/dashboard.py:166: FutureWarning: 'T' is deprecated and will be removed in a future version, please use 'min' instea
 
 Add a favicon to web ui
 
 It should focus more on selling when there is profit to make, it should avoid more selling when it wont make profit
 
 ligar un llm
-
 
 It is still not frequent enough
 
@@ -146,6 +142,22 @@ Generating high frequency dashboard from 203 data points...
 - Add volume profile analysis for better entry/exit points
 
 ## Done
+
+/Users/beborico/dev/crypto-trading-bot/trading/dashboard.py:166: FutureWarning: 'T' is deprecated and will be removed in a future version, please use 'min' instea
+
+
+Make dark mode
+
+Storing and reading the data grom jsons is startin to prove problematic
+
+
+Lets Improve way more the design ui/ux of the web interface I was thinking purple tones a very cool ui / ux
+
+For the models when starting a new bot it should also be a select instead of a text input
+
+The graphic is broken we can see one it does not fit in the container it has more height than the container but most importantly it showing 1 increases starting in 0 every time it refreshes which make no sense it should show like 100 constantly instead when is has not yet traded anything
+
+The graphic is still now showing the right data
 
 Build an Awesome Web UI
 

@@ -12,15 +12,19 @@ Do a new read me
 
 Modularize
 
-The bots sometimes deactivate themselves in the front
+Add the right icons for each coin
 
 Test with real money
 
-hft_dashboard.png and price_volatility.png are showing the same thing
+The other coins are not shwoing the real data
 
 The:  0 Total Trades +0.00% Overall Return $0 Portfolio Value are not showing the real data
 
 ## should
+
+The bots sometimes deactivate themselves in the front
+
+hft_dashboard.png and price_volatility.png are showing the same thing
 
 Add hability to do do a historical run mode to see how our model would have performed oer time
 

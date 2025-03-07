@@ -1,0 +1,3 @@
+timestamp,action,amount,price,value,quote_balance_after,base_balance_after,base_currency,quote_currency
+2025-02-28T23:29:37.528178,buy,0.00018,14.82,0.0026676,99.9973297324,0.00018,LINK,USDT
+2025-02-28T23:29:40.043592,buy,0.00018,14.82,0.0026676,99.99465946480001,0.00036,LINK,USDT

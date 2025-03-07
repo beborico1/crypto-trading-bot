@@ -1,3599 +1,627 @@
 {
-  "transactions": [
-    {
-      "timestamp": "2025-02-28T23:07:18.179234",
-      "action": "buy",
-      "amount": 0.00018,
-      "price": 86113.0,
-      "value": 15.500340000000001,
-      "quote_balance_after": 84.48415966,
-      "base_balance_after": 0.00018,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:07:20.616356",
-      "action": "buy",
-      "amount": 0.00018,
-      "price": 86110.02,
-      "value": 15.499803600000002,
-      "quote_balance_after": 68.9688562564,
-      "base_balance_after": 0.00036,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:07:23.185054",
-      "action": "buy",
-      "amount": 0.00014,
-      "price": 86110.03,
-      "value": 12.055404199999998,
-      "quote_balance_after": 56.901396652200006,
-      "base_balance_after": 0.0005,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:11:10.310056",
-      "action": "sell",
-      "amount": 0.0005,
-      "price": 86116.01,
-      "value": 43.058005,
-      "quote_balance_after": 99.91634364720001,
-      "base_balance_after": 0.0,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:15:36.067974",
-      "action": "buy",
-      "amount": 0.00018,
-      "price": 85933.1,
-      "value": 15.467958000000001,
-      "quote_balance_after": 84.43291768920001,
-      "base_balance_after": 0.00018,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:15:38.580240",
-      "action": "buy",
-      "amount": 0.00018,
-      "price": 85933.1,
-      "value": 15.467958000000001,
-      "quote_balance_after": 68.94949173120001,
-      "base_balance_after": 0.00036,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:15:41.043252",
-      "action": "buy",
-      "amount": 0.00014,
-      "price": 85933.1,
-      "value": 12.030634,
-      "quote_balance_after": 56.906827097200015,
-      "base_balance_after": 0.0005,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:16:01.577055",
-      "action": "sell",
-      "amount": 0.0001,
-      "price": 85900.0,
-      "value": 8.59,
-      "quote_balance_after": 65.48823709720001,
-      "base_balance_after": 0.0004,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:16:04.093323",
-      "action": "sell",
-      "amount": 0.0001,
-      "price": 85900.01,
-      "value": 8.590000999999999,
-      "quote_balance_after": 74.06964809620001,
-      "base_balance_after": 0.00030000000000000003,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:16:06.610077",
-      "action": "sell",
-      "amount": 0.0001,
-      "price": 85900.01,
-      "value": 8.590000999999999,
-      "quote_balance_after": 82.65105909520001,
-      "base_balance_after": 0.00020000000000000004,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:16:09.121563",
-      "action": "sell",
-      "amount": 0.0001,
-      "price": 85902.1,
-      "value": 8.59021,
-      "quote_balance_after": 91.23267888520002,
-      "base_balance_after": 0.00010000000000000003,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:17:48.271873",
-      "action": "sell",
-      "amount": 0.0001,
-      "price": 85960.0,
-      "value": 8.596,
-      "quote_balance_after": 99.82008288520001,
-      "base_balance_after": 2.710505431213761e-20,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    },
-    {
-      "timestamp": "2025-02-28T23:17:50.813643",
-      "action": "sell",
-      "amount": 2.710505431213761e-20,
-      "price": 85955.89,
-      "value": 2.329839066898126e-15,
-      "quote_balance_after": 99.82008288520001,
-      "base_balance_after": 0.0,
-      "base_currency": "BTC",
-      "quote_currency": "USDT"
-    }
-  ],
+  "transactions": [],
   "balance_history": [
     {
-      "timestamp": "2025-02-28T22:58:58.983253",
+      "timestamp": "2025-02-28T23:26:24.999491",
       "quote_balance": 100.0,
       "base_balance": 0.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:01.051433",
+      "timestamp": "2025-02-28T23:26:27.628195",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86245.3,
+      "price": 85845.8,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:03.256218",
+      "timestamp": "2025-02-28T23:26:29.855768",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86245.3,
+      "price": 85845.79,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:05.471593",
+      "timestamp": "2025-02-28T23:26:32.073011",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86241.87,
+      "price": 85845.8,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:07.677021",
+      "timestamp": "2025-02-28T23:26:34.293535",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86241.87,
+      "price": 85853.5,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:09.906844",
+      "timestamp": "2025-02-28T23:26:36.513592",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86245.3,
+      "price": 85853.51,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:12.111055",
+      "timestamp": "2025-02-28T23:26:38.731516",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.12,
+      "price": 85848.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:14.323213",
+      "timestamp": "2025-02-28T23:26:40.950994",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.12,
+      "price": 85849.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:16.543090",
+      "timestamp": "2025-02-28T23:26:43.159723",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.13,
+      "price": 85848.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:18.753781",
+      "timestamp": "2025-02-28T23:26:45.387891",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.13,
+      "price": 85848.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:20.960735",
+      "timestamp": "2025-02-28T23:26:47.618376",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.13,
+      "price": 85861.46,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:23.173727",
+      "timestamp": "2025-02-28T23:26:49.834055",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.13,
+      "price": 85861.47,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:25.402706",
+      "timestamp": "2025-02-28T23:26:52.034858",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.12,
+      "price": 85863.62,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:27.627246",
+      "timestamp": "2025-02-28T23:26:54.248965",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.13,
+      "price": 85863.62,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:29.845494",
+      "timestamp": "2025-02-28T23:26:56.469833",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.12,
+      "price": 85867.93,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:32.074515",
+      "timestamp": "2025-02-28T23:26:58.682019",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.13,
+      "price": 85891.27,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:34.302654",
+      "timestamp": "2025-02-28T23:27:00.906462",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86250.13,
+      "price": 85891.27,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:36.535396",
+      "timestamp": "2025-02-28T23:27:03.123151",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86240.39,
+      "price": 85891.26,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:38.731084",
+      "timestamp": "2025-02-28T23:27:05.332476",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86230.01,
+      "price": 85867.08,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:40.947901",
+      "timestamp": "2025-02-28T23:27:07.575860",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86215.08,
+      "price": 85867.07,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:43.183812",
+      "timestamp": "2025-02-28T23:27:09.783540",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86215.09,
+      "price": 85867.07,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:45.410275",
+      "timestamp": "2025-02-28T23:27:11.989930",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86198.13,
+      "price": 85867.07,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:47.618940",
+      "timestamp": "2025-02-28T23:28:10.068539",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86198.13,
+      "price": 85835.22,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:49.835218",
+      "timestamp": "2025-02-28T23:28:12.320779",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86198.12,
+      "price": 85820.75,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:52.043116",
+      "timestamp": "2025-02-28T23:28:14.554542",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86190.02,
+      "price": 85800.01,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:54.246591",
+      "timestamp": "2025-02-28T23:28:16.827020",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86190.01,
+      "price": 85801.32,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:56.470846",
+      "timestamp": "2025-02-28T23:28:19.129553",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86190.0,
+      "price": 85812.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T22:59:58.693509",
+      "timestamp": "2025-02-28T23:28:21.379263",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86190.0,
+      "price": 85807.41,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:01.055523",
+      "timestamp": "2025-02-28T23:28:23.613232",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86190.01,
+      "price": 85810.82,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:03.284598",
+      "timestamp": "2025-02-28T23:28:25.841450",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86184.76,
+      "price": 85808.12,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:05.502959",
+      "timestamp": "2025-02-28T23:28:28.056607",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86180.85,
+      "price": 85808.12,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:07.742305",
+      "timestamp": "2025-02-28T23:28:30.339820",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86198.12,
+      "price": 85808.12,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:09.972782",
+      "timestamp": "2025-02-28T23:28:32.596371",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86198.12,
+      "price": 85808.12,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:12.201899",
+      "timestamp": "2025-02-28T23:28:34.844606",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86198.12,
+      "price": 85808.12,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:14.426407",
+      "timestamp": "2025-02-28T23:28:37.051506",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86173.3,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:16.630630",
+      "timestamp": "2025-02-28T23:28:39.290936",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86171.18,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:18.852274",
+      "timestamp": "2025-02-28T23:28:41.530436",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.88,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:21.080429",
+      "timestamp": "2025-02-28T23:28:43.817636",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.02,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:23.318391",
+      "timestamp": "2025-02-28T23:28:46.053670",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.02,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:25.644079",
+      "timestamp": "2025-02-28T23:28:48.284105",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.01,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:27.850636",
+      "timestamp": "2025-02-28T23:28:50.523562",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.01,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:30.080279",
+      "timestamp": "2025-02-28T23:28:52.760282",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.01,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:32.309301",
+      "timestamp": "2025-02-28T23:28:55.008774",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86172.01,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:34.519158",
+      "timestamp": "2025-02-28T23:28:57.237313",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86172.01,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:36.735574",
+      "timestamp": "2025-02-28T23:28:59.468249",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86172.01,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:38.958088",
+      "timestamp": "2025-02-28T23:29:01.680868",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86167.41,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:41.171912",
+      "timestamp": "2025-02-28T23:29:03.895794",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.05,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:43.395162",
+      "timestamp": "2025-02-28T23:29:06.176173",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.05,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:45.599169",
+      "timestamp": "2025-02-28T23:29:08.436235",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.05,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:47.809910",
+      "timestamp": "2025-02-28T23:29:10.659154",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.04,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:50.027405",
+      "timestamp": "2025-02-28T23:29:12.911691",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.05,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:52.257379",
+      "timestamp": "2025-02-28T23:29:15.162626",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.04,
+      "price": 85818.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:54.462491",
+      "timestamp": "2025-02-28T23:29:17.461525",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86156.84,
+      "price": 85817.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:56.668583",
+      "timestamp": "2025-02-28T23:29:19.738676",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86156.83,
+      "price": 85823.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:00:58.899360",
+      "timestamp": "2025-02-28T23:29:22.059287",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86156.84,
+      "price": 85823.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:01.118941",
+      "timestamp": "2025-02-28T23:29:26.142305",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86164.04,
+      "price": 85835.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:03.341656",
+      "timestamp": "2025-02-28T23:29:28.465231",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86171.39,
+      "price": 85835.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:05.559754",
+      "timestamp": "2025-02-28T23:29:30.682914",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86171.39,
+      "price": 85834.99,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:07.775612",
+      "timestamp": "2025-02-28T23:29:32.948633",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86163.17,
+      "price": 85837.13,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:09.993090",
+      "timestamp": "2025-02-28T23:29:35.262031",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86163.17,
+      "price": 85838.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:12.217509",
+      "timestamp": "2025-02-28T23:29:37.510394",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86153.03,
+      "price": 85838.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:14.441562",
+      "timestamp": "2025-02-28T23:29:39.832104",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86153.03,
+      "price": 85840.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:16.669448",
+      "timestamp": "2025-02-28T23:29:42.081953",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.54,
+      "price": 85841.82,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:18.894065",
+      "timestamp": "2025-02-28T23:29:44.403007",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.55,
+      "price": 85841.82,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:21.120877",
+      "timestamp": "2025-02-28T23:29:46.706953",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.54,
+      "price": 85841.82,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:23.341959",
+      "timestamp": "2025-02-28T23:29:48.985625",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.55,
+      "price": 85841.83,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:25.563651",
+      "timestamp": "2025-02-28T23:29:51.378398",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.56,
+      "price": 85838.67,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:27.771217",
+      "timestamp": "2025-02-28T23:29:53.644621",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.56,
+      "price": 85838.67,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:29.985857",
+      "timestamp": "2025-02-28T23:29:55.943919",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.56,
+      "price": 85838.67,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:32.194597",
+      "timestamp": "2025-02-28T23:29:58.288635",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.55,
+      "price": 85838.66,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:34.408693",
+      "timestamp": "2025-02-28T23:30:00.619928",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.55,
+      "price": 85838.66,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:36.626323",
+      "timestamp": "2025-02-28T23:30:03.123938",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.55,
+      "price": 85829.12,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:38.838558",
+      "timestamp": "2025-02-28T23:30:05.519415",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.56,
+      "price": 85829.11,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:41.043108",
+      "timestamp": "2025-02-28T23:30:07.842849",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.56,
+      "price": 85819.29,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:43.273543",
+      "timestamp": "2025-02-28T23:30:10.173214",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86160.56,
+      "price": 85812.23,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:45.485899",
+      "timestamp": "2025-02-28T23:30:12.476650",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86150.0,
+      "price": 85812.24,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:47.696151",
+      "timestamp": "2025-02-28T23:30:14.771988",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86150.01,
+      "price": 85812.24,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:01:49.908444",
+      "timestamp": "2025-02-28T23:30:18.854854",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86150.0,
+      "price": 85812.24,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:09.191016",
+      "timestamp": "2025-02-28T23:30:21.271373",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86111.78,
+      "price": 85812.24,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:11.409766",
+      "timestamp": "2025-02-28T23:30:23.664479",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86103.78,
+      "price": 85792.46,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:13.644467",
+      "timestamp": "2025-02-28T23:30:25.966992",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86103.78,
+      "price": 85784.14,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:15.851019",
+      "timestamp": "2025-02-28T23:30:28.265645",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86070.0,
+      "price": 85784.03,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:18.063095",
+      "timestamp": "2025-02-28T23:30:30.547264",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86075.31,
+      "price": 85784.02,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:20.280686",
+      "timestamp": "2025-02-28T23:30:32.859445",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86089.11,
+      "price": 85792.45,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:22.495988",
+      "timestamp": "2025-02-28T23:30:35.293946",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86095.83,
+      "price": 85806.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:24.700494",
+      "timestamp": "2025-02-28T23:30:37.592092",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86087.74,
+      "price": 85806.0,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:26.921104",
+      "timestamp": "2025-02-28T23:30:39.969648",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86087.74,
+      "price": 85817.48,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:29.163558",
+      "timestamp": "2025-02-28T23:30:42.317329",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86087.05,
+      "price": 85817.47,
       "total_value_in_quote": 100.0
     },
     {
-      "timestamp": "2025-02-28T23:02:31.364613",
+      "timestamp": "2025-02-28T23:30:44.553827",
       "quote_balance": 100.0,
       "base_balance": 0.0,
-      "price": 86070.0,
+      "price": 85802.01,
       "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:33.588749",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:35.813872",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:38.039306",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:40.255750",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:42.479895",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:44.705132",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:46.928336",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:49.135175",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:51.345641",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:53.562260",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:55.787400",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:02:57.990578",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86099.85,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:00.208133",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86109.6,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:02.439587",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86091.63,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:04.663598",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86091.54,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:06.886816",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86103.25,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:09.089735",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86134.88,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:11.310043",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86104.38,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:13.534633",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86094.61,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:15.755159",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86094.62,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:18.000221",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86094.62,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:20.434234",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86094.62,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:22.641211",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86094.61,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:24.865448",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86094.62,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:27.082997",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86094.61,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:29.287832",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86096.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:31.519007",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86096.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:33.749361",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86096.29,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:35.959871",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86100.89,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:38.216015",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86111.18,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:40.436289",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86103.35,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:42.653648",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86103.15,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:44.874129",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86103.15,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:47.191521",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.93,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:49.413345",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.94,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:51.627201",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.94,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:53.847365",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.96,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:56.075247",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.96,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:03:58.284382",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.97,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:00.499884",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.96,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:02.711865",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.95,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:04.924041",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.95,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:07.149656",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86106.96,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:09.371772",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86100.91,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:11.596083",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86100.9,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:13.820327",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86100.9,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:16.037119",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86100.91,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:18.249006",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86107.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:20.455270",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86107.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:22.674346",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86104.02,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:24.895353",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86097.1,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:27.106929",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86097.1,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:29.319299",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86097.1,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:31.526008",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86097.1,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:33.731597",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.99,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:35.955805",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.98,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:38.159406",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.99,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:40.360325",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.98,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:42.576559",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.99,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:44.792384",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.98,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:46.993149",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.98,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:49.211546",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86097.11,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:51.432027",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86097.11,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:53.665057",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86090.17,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:55.887648",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86090.17,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:04:58.095808",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86097.34,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:00.322295",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86091.94,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:02.545833",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86080.18,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:04.770676",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86080.18,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:06.978218",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86080.18,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:09.203630",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86070.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:11.428272",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86059.82,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:13.657911",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86066.77,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:15.885720",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86066.78,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:18.101949",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86078.4,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:20.345545",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86083.55,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:22.573142",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86091.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:24.783092",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86089.67,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:27.004545",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86078.4,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:29.235644",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86078.41,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:31.438580",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86078.41,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:33.655212",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86076.03,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:35.870355",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.8,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:38.082164",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86066.27,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:40.300181",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.8,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:42.511892",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.8,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:44.733194",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.79,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:46.968488",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.82,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:49.199115",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86071.7,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:51.428481",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86071.7,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:53.654787",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.8,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:55.880443",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.79,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:05:58.096614",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.79,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:00.317360",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86062.19,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:02.546634",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86057.67,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:04.773643",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86057.66,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:07.012508",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86057.67,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:09.237308",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86057.67,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:11.468258",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86057.67,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:13.688285",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86056.61,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:15.919879",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86045.21,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:18.133614",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86057.41,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:20.354756",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86057.41,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:22.570292",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86068.87,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:24.790216",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86068.86,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:27.018857",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.78,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:29.242806",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.78,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:31.466681",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.77,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:33.689760",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86069.78,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:35.926500",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86085.99,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:38.275512",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86092.45,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:40.495996",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86099.99,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:42.707915",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86101.64,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:44.922391",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86112.59,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:47.139612",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86114.2,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:49.353388",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86114.2,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:51.561224",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86110.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:53.775678",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86110.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:55.989009",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86110.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:06:58.210199",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86107.71,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:00.450546",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86107.71,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:02.660514",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86107.7,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:04.868548",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86102.55,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:07.093811",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86102.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:09.301783",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86102.01,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:11.520556",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86110.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:13.751975",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86113.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:15.966717",
-      "quote_balance": 100.0,
-      "base_balance": 0.0,
-      "price": 86113.0,
-      "total_value_in_quote": 100.0
-    },
-    {
-      "timestamp": "2025-02-28T23:07:18.179234",
-      "quote_balance": 84.48415966,
-      "base_balance": 0.00018,
-      "price": 86113.0,
-      "total_value_in_quote": 99.98449966000001
-    },
-    {
-      "timestamp": "2025-02-28T23:07:18.408628",
-      "quote_balance": 84.48415966,
-      "base_balance": 0.00018,
-      "price": 86113.0,
-      "total_value_in_quote": 99.98449966000001
-    },
-    {
-      "timestamp": "2025-02-28T23:07:20.616356",
-      "quote_balance": 68.9688562564,
-      "base_balance": 0.00036,
-      "price": 86110.02,
-      "total_value_in_quote": 99.9684634564
-    },
-    {
-      "timestamp": "2025-02-28T23:07:20.971843",
-      "quote_balance": 68.9688562564,
-      "base_balance": 0.00036,
-      "price": 86110.02,
-      "total_value_in_quote": 99.9684634564
-    },
-    {
-      "timestamp": "2025-02-28T23:07:23.185054",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86110.03,
-      "total_value_in_quote": 99.9564116522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:01.679077",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86075.11,
-      "total_value_in_quote": 99.93895165220002
-    },
-    {
-      "timestamp": "2025-02-28T23:08:03.895903",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86075.11,
-      "total_value_in_quote": 99.93895165220002
-    },
-    {
-      "timestamp": "2025-02-28T23:08:06.104857",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86094.33,
-      "total_value_in_quote": 99.9485616522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:08.336672",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86119.52,
-      "total_value_in_quote": 99.9611566522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:10.550853",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86119.52,
-      "total_value_in_quote": 99.9611566522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:12.767011",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86165.99,
-      "total_value_in_quote": 99.9843916522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:15.003232",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86158.0,
-      "total_value_in_quote": 99.9803966522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:17.229316",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86145.38,
-      "total_value_in_quote": 99.97408665220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:19.450059",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86155.32,
-      "total_value_in_quote": 99.9790566522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:21.675255",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86169.81,
-      "total_value_in_quote": 99.98630165220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:23.894941",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86181.09,
-      "total_value_in_quote": 99.99194165220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:26.106412",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86181.99,
-      "total_value_in_quote": 99.99239165220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:28.323960",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86198.12,
-      "total_value_in_quote": 100.0004566522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:30.549886",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86191.35,
-      "total_value_in_quote": 99.99707165220002
-    },
-    {
-      "timestamp": "2025-02-28T23:08:32.787763",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86184.0,
-      "total_value_in_quote": 99.9933966522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:35.013945",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86197.3,
-      "total_value_in_quote": 100.00004665220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:37.234060",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86197.31,
-      "total_value_in_quote": 100.0000516522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:39.458054",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86198.12,
-      "total_value_in_quote": 100.0004566522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:41.686557",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86204.99,
-      "total_value_in_quote": 100.00389165220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:43.916565",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86220.0,
-      "total_value_in_quote": 100.0113966522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:46.150478",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86216.09,
-      "total_value_in_quote": 100.0094416522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:48.360051",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86216.09,
-      "total_value_in_quote": 100.0094416522
-    },
-    {
-      "timestamp": "2025-02-28T23:08:50.582388",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86216.1,
-      "total_value_in_quote": 100.00944665220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:52.798180",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86216.1,
-      "total_value_in_quote": 100.00944665220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:55.026248",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86215.0,
-      "total_value_in_quote": 100.00889665220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:57.248851",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86215.0,
-      "total_value_in_quote": 100.00889665220001
-    },
-    {
-      "timestamp": "2025-02-28T23:08:59.465033",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86213.62,
-      "total_value_in_quote": 100.0082066522
-    },
-    {
-      "timestamp": "2025-02-28T23:09:01.697736",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86220.0,
-      "total_value_in_quote": 100.0113966522
-    },
-    {
-      "timestamp": "2025-02-28T23:09:03.923717",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86235.2,
-      "total_value_in_quote": 100.0189966522
-    },
-    {
-      "timestamp": "2025-02-28T23:09:06.142145",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86237.65,
-      "total_value_in_quote": 100.02022165220001
-    },
-    {
-      "timestamp": "2025-02-28T23:09:08.363155",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86245.29,
-      "total_value_in_quote": 100.0240416522
-    },
-    {
-      "timestamp": "2025-02-28T23:09:10.594730",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86248.69,
-      "total_value_in_quote": 100.02574165220001
-    },
-    {
-      "timestamp": "2025-02-28T23:09:12.814038",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86248.56,
-      "total_value_in_quote": 100.0256766522
-    },
-    {
-      "timestamp": "2025-02-28T23:09:15.041341",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86242.01,
-      "total_value_in_quote": 100.0224016522
-    },
-    {
-      "timestamp": "2025-02-28T23:09:17.266564",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86249.99,
-      "total_value_in_quote": 100.0263916522
-    },
-    {
-      "timestamp": "2025-02-28T23:09:19.483174",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86257.47,
-      "total_value_in_quote": 100.0301316522
-    },
-    {
-      "timestamp": "2025-02-28T23:11:01.361018",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86124.14,
-      "total_value_in_quote": 99.9634666522
-    },
-    {
-      "timestamp": "2025-02-28T23:11:03.590503",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86126.63,
-      "total_value_in_quote": 99.96471165220001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:05.839741",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86135.99,
-      "total_value_in_quote": 99.96939165220002
-    },
-    {
-      "timestamp": "2025-02-28T23:11:08.076143",
-      "quote_balance": 56.901396652200006,
-      "base_balance": 0.0005,
-      "price": 86129.92,
-      "total_value_in_quote": 99.9663566522
-    },
-    {
-      "timestamp": "2025-02-28T23:11:10.310056",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86116.01,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:10.530385",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86116.01,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:12.775264",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86116.02,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:15.013157",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86119.58,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:17.257845",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86108.3,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:19.500132",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86098.74,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:21.730984",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86085.07,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:23.978067",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86061.73,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:26.231577",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86069.14,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:28.463082",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86069.14,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:30.705717",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86069.15,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:32.946243",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86075.1,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:35.185095",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86082.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:37.431153",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86083.39,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:39.663142",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86056.62,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:41.894320",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86056.62,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:44.110927",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86070.43,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:46.334948",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86072.44,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:48.571611",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86077.56,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:50.802375",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86094.34,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:53.031586",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86083.41,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:55.244734",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86080.21,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:57.477228",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86068.01,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:11:59.679701",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86071.99,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:01.909099",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86072.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:04.145066",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86072.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:06.387239",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86072.01,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:08.605547",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86072.06,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:10.899651",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86088.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:13.134493",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86088.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:15.353898",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86081.89,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:17.565665",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86074.41,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:19.792293",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86073.38,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:22.031923",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86056.61,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:24.276174",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86038.02,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:26.499419",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86038.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:29.064729",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86041.44,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:31.284323",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86048.66,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:33.487976",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86048.66,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:35.697804",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86056.6,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:37.901639",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86078.22,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:40.106871",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86078.23,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:12:42.309220",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86078.22,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:13:53.281055",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 86005.75,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:13:55.509461",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85999.55,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:13:57.742886",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85999.55,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:13:59.948200",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85999.55,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:02.175991",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85999.55,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:04.415282",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85994.41,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:06.660529",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85948.79,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:08.892768",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85948.8,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:11.118018",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85948.8,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:13.338241",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85948.8,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:15.638498",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85948.79,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:17.872689",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85955.87,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:20.111945",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85955.87,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:22.348939",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85955.89,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:24.589166",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85959.54,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:26.844445",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85967.42,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:29.102674",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85977.97,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:31.326459",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85980.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:33.550925",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85980.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:35.806149",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85979.99,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:38.058646",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85971.42,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:40.310104",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85971.42,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:42.532326",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85971.42,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:44.756336",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85968.21,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:47.005332",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85958.03,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:49.244520",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85949.48,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:51.475365",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85941.33,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:53.703006",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85917.43,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:55.934916",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85928.4,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:14:58.156097",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85928.39,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:00.396017",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85910.72,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:02.631824",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85915.09,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:04.885901",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85918.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:07.109068",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85901.62,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:09.330829",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85911.19,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:11.565061",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85916.33,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:13.798794",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85901.68,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:16.028295",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85910.0,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:18.255669",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85915.53,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:20.485782",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85928.4,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:22.720936",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85928.4,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:24.941540",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85928.4,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:27.175080",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85919.21,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:29.373493",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85938.38,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:31.608986",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85933.1,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:33.848832",
-      "quote_balance": 99.91634364720001,
-      "base_balance": 0.0,
-      "price": 85933.1,
-      "total_value_in_quote": 99.91634364720001
-    },
-    {
-      "timestamp": "2025-02-28T23:15:36.067974",
-      "quote_balance": 84.43291768920001,
-      "base_balance": 0.00018,
-      "price": 85933.1,
-      "total_value_in_quote": 99.9008756892
-    },
-    {
-      "timestamp": "2025-02-28T23:15:36.352408",
-      "quote_balance": 84.43291768920001,
-      "base_balance": 0.00018,
-      "price": 85933.1,
-      "total_value_in_quote": 99.9008756892
-    },
-    {
-      "timestamp": "2025-02-28T23:15:38.580240",
-      "quote_balance": 68.94949173120001,
-      "base_balance": 0.00036,
-      "price": 85933.1,
-      "total_value_in_quote": 99.88540773120002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:38.839964",
-      "quote_balance": 68.94949173120001,
-      "base_balance": 0.00036,
-      "price": 85933.1,
-      "total_value_in_quote": 99.88540773120002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:41.043252",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85933.1,
-      "total_value_in_quote": 99.87337709720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:41.552165",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85933.1,
-      "total_value_in_quote": 99.87337709720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:43.751794",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85933.1,
-      "total_value_in_quote": 99.87337709720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:45.959066",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85925.01,
-      "total_value_in_quote": 99.86933209720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:48.162494",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85921.47,
-      "total_value_in_quote": 99.86756209720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:50.389730",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85921.47,
-      "total_value_in_quote": 99.86756209720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:52.625317",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85921.49,
-      "total_value_in_quote": 99.86757209720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:54.856947",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85918.68,
-      "total_value_in_quote": 99.86616709720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:57.086932",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85918.68,
-      "total_value_in_quote": 99.86616709720002
-    },
-    {
-      "timestamp": "2025-02-28T23:15:59.332721",
-      "quote_balance": 56.906827097200015,
-      "base_balance": 0.0005,
-      "price": 85918.68,
-      "total_value_in_quote": 99.86616709720002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:01.577055",
-      "quote_balance": 65.48823709720001,
-      "base_balance": 0.0004,
-      "price": 85900.0,
-      "total_value_in_quote": 99.84823709720001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:01.853127",
-      "quote_balance": 65.48823709720001,
-      "base_balance": 0.0004,
-      "price": 85900.0,
-      "total_value_in_quote": 99.84823709720001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:04.093353",
-      "quote_balance": 74.06964809620001,
-      "base_balance": 0.00030000000000000003,
-      "price": 85900.01,
-      "total_value_in_quote": 99.83965109620001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:04.373248",
-      "quote_balance": 74.06964809620001,
-      "base_balance": 0.00030000000000000003,
-      "price": 85900.01,
-      "total_value_in_quote": 99.83965109620001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:06.595319",
-      "quote_balance": 82.65105909520001,
-      "base_balance": 0.00020000000000000004,
-      "price": 85900.01,
-      "total_value_in_quote": 99.83106109520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:06.874952",
-      "quote_balance": 82.65105909520001,
-      "base_balance": 0.00020000000000000004,
-      "price": 85900.01,
-      "total_value_in_quote": 99.83106109520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:09.121612",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85902.1,
-      "total_value_in_quote": 99.82288888520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:09.412622",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85902.1,
-      "total_value_in_quote": 99.82288888520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:11.634464",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85940.76,
-      "total_value_in_quote": 99.82675488520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:13.918015",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85948.61,
-      "total_value_in_quote": 99.82753988520003
-    },
-    {
-      "timestamp": "2025-02-28T23:16:16.178987",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85948.61,
-      "total_value_in_quote": 99.82753988520003
-    },
-    {
-      "timestamp": "2025-02-28T23:16:18.419334",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85959.45,
-      "total_value_in_quote": 99.82862388520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:20.713329",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85959.99,
-      "total_value_in_quote": 99.82867788520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:23.057163",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85969.76,
-      "total_value_in_quote": 99.82965488520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:25.289105",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85977.07,
-      "total_value_in_quote": 99.83038588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:27.528796",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85980.65,
-      "total_value_in_quote": 99.83074388520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:29.751156",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85983.53,
-      "total_value_in_quote": 99.83103188520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:31.971880",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85980.01,
-      "total_value_in_quote": 99.83067988520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:34.207941",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85970.45,
-      "total_value_in_quote": 99.82972388520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:36.441523",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85969.38,
-      "total_value_in_quote": 99.82961688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:38.684390",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85959.93,
-      "total_value_in_quote": 99.82867188520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:40.921071",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85959.92,
-      "total_value_in_quote": 99.82867088520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:43.174066",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85959.92,
-      "total_value_in_quote": 99.82867088520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:45.430859",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85959.92,
-      "total_value_in_quote": 99.82867088520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:47.673003",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.06,
-      "total_value_in_quote": 99.82888488520001
-    },
-    {
-      "timestamp": "2025-02-28T23:16:49.921246",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.08,
-      "total_value_in_quote": 99.82888688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:52.138954",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.07,
-      "total_value_in_quote": 99.82888588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:54.386868",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.08,
-      "total_value_in_quote": 99.82888688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:56.641089",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.08,
-      "total_value_in_quote": 99.82888688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:16:58.877371",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.08,
-      "total_value_in_quote": 99.82888688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:01.130735",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.08,
-      "total_value_in_quote": 99.82888688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:03.378532",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.08,
-      "total_value_in_quote": 99.82888688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:05.616373",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85962.07,
-      "total_value_in_quote": 99.82888588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:07.849129",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85964.0,
-      "total_value_in_quote": 99.82907888520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:10.113816",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85969.43,
-      "total_value_in_quote": 99.82962188520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:12.362910",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85974.97,
-      "total_value_in_quote": 99.83017588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:14.610437",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85976.31,
-      "total_value_in_quote": 99.83030988520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:16.850931",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85974.98,
-      "total_value_in_quote": 99.83017688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:19.102275",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85974.97,
-      "total_value_in_quote": 99.83017588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:21.349316",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85969.77,
-      "total_value_in_quote": 99.82965588520003
-    },
-    {
-      "timestamp": "2025-02-28T23:17:23.573992",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85976.88,
-      "total_value_in_quote": 99.83036688520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:25.816171",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85977.07,
-      "total_value_in_quote": 99.83038588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:28.071580",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85977.08,
-      "total_value_in_quote": 99.83038688520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:30.287764",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85977.07,
-      "total_value_in_quote": 99.83038588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:32.541687",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85977.08,
-      "total_value_in_quote": 99.83038688520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:34.783761",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85977.07,
-      "total_value_in_quote": 99.83038588520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:37.063333",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85989.59,
-      "total_value_in_quote": 99.83163788520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:39.300964",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85989.6,
-      "total_value_in_quote": 99.83163888520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:41.536841",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85989.6,
-      "total_value_in_quote": 99.83163888520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:43.785801",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85983.76,
-      "total_value_in_quote": 99.83105488520002
-    },
-    {
-      "timestamp": "2025-02-28T23:17:46.020493",
-      "quote_balance": 91.23267888520002,
-      "base_balance": 0.00010000000000000003,
-      "price": 85977.08,
-      "total_value_in_quote": 99.83038688520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:48.271873",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 2.710505431213761e-20,
-      "price": 85960.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:48.577510",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 2.710505431213761e-20,
-      "price": 85960.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:50.813643",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85955.89,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:51.136802",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85955.89,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:53.341859",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85955.88,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:55.592005",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85975.95,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:17:57.835228",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85966.05,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:00.076320",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85964.41,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:02.317899",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85966.04,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:04.577796",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85967.18,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:06.831812",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85967.32,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:09.078398",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85967.33,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:11.305287",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85967.32,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:13.561457",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85973.83,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:15.811187",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85976.08,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:18.058011",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85976.08,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:20.305462",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85979.99,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:22.567229",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85981.13,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:24.935966",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85982.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:27.181460",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85993.32,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:29.410307",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85986.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:31.651808",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85986.86,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:33.904374",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85995.99,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:36.168002",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85999.05,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:38.414027",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85999.06,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:40.666846",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85999.05,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:42.916505",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85988.32,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:45.162632",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85987.55,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:47.405186",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85990.66,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:49.648231",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85990.66,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:51.904847",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85990.65,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:54.150621",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85992.35,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:56.406250",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85986.01,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:18:58.630417",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85986.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:00.874561",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85986.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:03.115053",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85981.17,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:05.372238",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85967.18,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:07.616522",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85975.54,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:09.865866",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85984.14,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:12.112010",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85984.61,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:14.364842",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85984.61,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:16.621335",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85984.62,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:18.883925",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85975.5,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:21.168472",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85975.51,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:23.411232",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85975.51,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:25.653537",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85967.18,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:27.900394",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85967.19,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:30.136727",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85975.12,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:32.394877",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85984.01,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:34.642073",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85985.14,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:36.894300",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85985.15,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:39.115473",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85985.15,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:41.342986",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85950.41,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:43.582677",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85943.39,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:45.809849",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85943.4,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:48.056209",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85917.62,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:50.314530",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85908.9,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:52.589068",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85900.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:54.859081",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85900.01,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:57.089091",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.14,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:19:59.323797",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.14,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:01.584458",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85909.72,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:03.812085",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85904.0,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:06.050914",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85893.59,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:08.340169",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85895.63,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:10.587134",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85895.63,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:12.834221",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85898.79,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:15.080849",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85899.43,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:17.341429",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85904.01,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:19.569380",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.14,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:21.823335",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.15,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:24.075492",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.15,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:26.484433",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.15,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:28.737190",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.14,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:30.970344",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.15,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:33.208879",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85905.67,
-      "total_value_in_quote": 99.82008288520001
-    },
-    {
-      "timestamp": "2025-02-28T23:20:35.440941",
-      "quote_balance": 99.82008288520001,
-      "base_balance": 0.0,
-      "price": 85912.0,
-      "total_value_in_quote": 99.82008288520001
     }
   ]
 }
